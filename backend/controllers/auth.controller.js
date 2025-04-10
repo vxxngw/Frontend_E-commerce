@@ -1,6 +1,7 @@
 import { User } from "../models/user.model.js";
+
 import bcrypt from "bcryptjs";
-import { generateTokenAndSetCookie } from "../utils/generateToken.js";
+import { generateTokenAndSetCookie } from "../ultis/generateToken.js";
 
 // Đăng ký tài khoản
 export const registerUser = async (req, res) => {

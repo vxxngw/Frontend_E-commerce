@@ -24,10 +24,10 @@ app.use("/api/v1/auth", authRoutes);
 // app.use("/api/v1/products", productRoutes); // nếu có
 // app.use("/api/v1/orders", orderRoutes);     // nếu có
 
-// Mặc định nếu không khớp route nào
-app.use("*", (req, res) => {
-    res.status(404).json({ success: false, message: "Không tìm thấy route." });
-});
+// // Mặc định nếu không khớp route nào
+// app.use("*", (req, res) => {
+//     res.status(404).json({ success: false, message: "Không tìm thấy route." });
+// });
 
 // Khởi động server
 app.listen(ENV_VARS.PORT, async () => {
