@@ -1,0 +1,93 @@
+  .form-main {
+    display: flex;
+    flex-direction: column; /* Sắp xếp các phần tử theo chiều dọc */
+    justify-content: center; /* Căn giữa theo chiều dọc */
+    align-items: center; /* Căn giữa theo chiều ngang */
+    width: 600px;
+    height: 400px;
+    background: #F5F5F5;
+    text-align: center;
+    align-items: flex-start;
+    margin: 50px 0;
+  }
+  .mm {
+    height: 50px;
+    margin-bottom: 30px;
+    color: #008B8B;
+    display: flex;
+    text-align: start;
+    justify-content: center;
+  }
+  .mm .title-main {
+     font-family: 'Times New Roman', Times, serif;
+     font-size: 30px;
+     font-weight: 800px;
+  }
+  #main-login {
+    height: 100px;
+    margin-bottom: 30px;
+  }
+  .input-login-form input {
+    width: 60%;
+    height: 40px;
+    border-radius: 15px;
+    border: none;
+    
+  }
+  .input-login-form {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: 10px 0;
+  }
+  .input-login-form #icon-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 12px;
+    flex-direction: column; /* Đặt các phần tử theo chiều dọc */
+  }
+  .error{
+    color: red; /* Màu chữ đỏ */
+    font-size: 15px;
+    text-align: center; 
+    width: 60%;
+    margin-left: 30px;
+}
+.btn-login {
+    background-color: #008B8B;
+    border: none;
+    margin-top: 70px ;
+    width: 120px;
+    height: 40px;
+    font-family:'Times New Roman', Times, serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: white;
+}
+.form-submit {
+    height: 250px;
+}
+.login-links {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.forgot-password-link,
+.create-account-link {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.forgot-password-link:hover,
+.create-account-link:hover {
+  text-decoration: underline;
+}
+
+.separator {
+  margin: 0 10px;
+  color: #6c757d;
+  font-size: 14px;
+}

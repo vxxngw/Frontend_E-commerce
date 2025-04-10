@@ -1,0 +1,96 @@
+.footer {
+    background-color: #f8f9fa;
+    padding: 20px 0;
+    text-align: center;
+  }
+  
+  .footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .footer-content {
+    flex: 0.5   ;
+   
+  }
+  
+  .footer-brand h2 {
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0;
+  }
+  
+  .footer-links li {
+    display: inline;
+    margin-right: 15px;
+  }
+  
+  .footer-links a {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+  
+  .footer-links a:hover {
+    text-decoration: underline;
+  }
+  
+  .footer-social {
+    margin-top: 15px;
+  }
+  
+  .footer-social .icon-footer {
+    margin: 0 10px;
+    font-size: 1.2rem;
+    color: #666;
+    transition: color 0.3s;
+  }
+  
+  .footer-social .icon-footer:hover {
+    color: #007bff;
+  }
+  
+  .footer-logo img {
+    max-width: 150px;
+    height: auto;
+  }
+  
+  .footer-copyright {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #999;
+  }
+  #icon-fb {
+    color: blue;
+    margin: 0 10px;
+    font-size: 1.2rem;
+    transition: color 0.3s;
+  }
+  #icon-twitter {
+    color: #00BFFF;
+    margin: 0 10px;
+    font-size: 1.2rem;
+    transition: color 0.3s;
+  }
+  #icon-in {
+    color: #930836;
+    margin: 0 10px;
+    font-size: 1.2rem;
+    transition: color 0.3s;
+  }
+  #icon-youtube {
+    color: #DC143C;
+    margin: 0 10px;
+    font-size: 1.2rem;
+    transition: color 0.3s;
+  }

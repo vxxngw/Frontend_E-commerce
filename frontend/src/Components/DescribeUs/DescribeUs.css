@@ -1,0 +1,94 @@
+.about-us-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    padding: 20px;
+    background-color: #FFFFFF;
+    margin-bottom: 50px;
+    box-shadow: rgba(0, 0, 0, 0.1) 2px 2px 2px 2px;
+    flex-direction: column;
+    
+  }
+  
+  .grid {
+    display: grid;
+    gap: 20px;
+  }
+  
+  .grid--1-col {
+    grid-template-columns: 1fr;
+  }
+  
+  .grid--2-col-tablet {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .grid-item {
+    width: 100%;
+  }
+  .about-us-text {
+    width: 80%;
+  }
+  .about-us-image img {
+    width: 80%;
+    object-fit: cover;
+  }
+  .about-us-image {
+    display: flex;
+    justify-content: center;
+  }
+  .new-about {
+    width: 100%;
+}
+.new-about h1 {
+    color: #171717;
+    font-size: 50px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+}
+.new-about {
+    margin-bottom: 50px;
+}
+
+/* Định nghĩa font toàn cục */
+:root {
+    --font-heading-family: Futura, sans-serif;
+  }
+  
+  /* Định nghĩa kiểu chữ cho tiêu đề h2 */
+  .about-us-text h2 {
+    font-size: 2rem; /* Đặt kích thước chữ cho h2 */
+    font-family: var(--font-heading-family); /* Sử dụng font được khai báo từ :root */
+    margin-bottom: 15px;
+  }
+  
+  /* Định nghĩa kiểu chữ cho đoạn văn (p) */
+  .about-us-text p {
+    font-size: 16px;
+    font-family: var(--font-heading-family);
+    line-height: 1.6;
+    margin-bottom: 10px;
+    color: black; /* Màu chữ cho đoạn văn */
+  }
+  
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .grid--2-col-tablet {
+      grid-template-columns: 1fr;
+    }
+  
+    .about-us-text h2 {
+      font-size: 20px;
+    }
+  
+    .about-us-text p {
+      font-size: 14px;
+    }
+  }
+  .about-us-image img:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out;
+  }
