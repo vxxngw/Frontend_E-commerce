@@ -1,4 +1,4 @@
-.login-container {
+.resgiter-container {
   display: flex;
   max-width: 900px;
   margin: 50px auto;
@@ -8,48 +8,47 @@
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
 }
 
-.login-image {
+.resgiter-image {
   flex: 1;
-  background: #93a3cc;
+  background: #93a3cc ;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 30px;
-  border-radius: 0px 150px 100px 0px;
+  border-radius: 150px 0px 0px 100px;
 }
 
-.login-image img {
+.resgiter-image img {
   width: 100%;
   max-width: 300px;
-
 }
 
-.login-form {
+.resgiter-form {
   flex: 1;
   padding: 40px;
 }
 
-.login-form h2 {
+.resgiter-form h2 {
   font-size: 28px;
   margin-bottom: 10px;
 }
 
-.login-form p {
+.resgiter-form p {
   margin-bottom: 20px;
   color: #666;
 }
 
-.login-form form {
+.resgiter-form form {
   display: flex;
   flex-direction: column;
 }
 
-.login-form label {
+.resgiter-form label {
   font-weight: 600;
   margin-top: 10px;
 }
 
-.login-form input {
+.resgiter-form input {
   padding: 10px;
   margin-top: 5px;
   border-radius: 8px;

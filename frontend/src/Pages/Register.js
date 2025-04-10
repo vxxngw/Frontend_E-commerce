@@ -1,129 +1,72 @@
-import React from "react";
+import React, { useState } from "react";
+import "./Resgiter.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
-import "./Register.css";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import loginImage from "../Components/Assets/IMG_Resgiter.png";
+const Resgiter = () => {
 
-function Register() {
-  const navigate = useNavigate(); // Khởi tạo useNavigate
-
+  const [submitMessage, setSubmitMessage] = useState("");
   const initialValues = {
-    username: "",
+    name: "",
     email: "",
     password: "",
     confirmPassword: "",
   };
 
   const validationSchema = Yup.object({
-    username: Yup.string().required("Vui lòng nhập tên người dùng"),
-    email: Yup.string()
-      .email("Email không hợp lệ")
-      .required("Vui lòng nhập email"),
-    password: Yup.string()
-      .min(6, "Mật khẩu tối thiểu 6 ký tự")
-      .required("Vui lòng nhập mật khẩu"),
+    name: Yup.string().required("Vui lòng nhập tên"),
+    email: Yup.string().email("Email không hợp lệ").required("Vui lòng nhập email"),
+    password: Yup.string().min(6, "Tối thiểu 6 ký tự").required("Vui lòng nhập mật khẩu"),
     confirmPassword: Yup.string()
       .oneOf([Yup.ref("password"), null], "Mật khẩu không khớp")
-      .required("Vui lòng xác nhận mật khẩu"),
+      .required("Xác nhận mật khẩu"),
   });
-  const handleSubmit = (values) => {
-  // Lấy danh sách người dùng hiện tại từ localStorage
-  const users = JSON.parse(localStorage.getItem("users")) || [];
 
-  // Kiểm tra email đã tồn tại chưa
-  const userExists = users.find(user => user.email === values.email);
-  if (userExists) {
-    alert("Email đã được đăng ký. Vui lòng sử dụng email khác.");
-    return;
-  }
-
-  // Thêm người dùng mới
-  const newUser = {
-    username: values.username,
-    email: values.email,
-    password: values.password,
+  const handleSubmit = (values, { resetForm }) => {
+    // ✅ Hiển thị thông báo phía dưới
+    setSubmitMessage("🎉 Đăng ký thành công!");
+    resetForm(); // Xóa dữ liệu trong form sau khi đăng ký xong (tùy chọn)
   };
 
-  users.push(newUser);
-  localStorage.setItem("users", JSON.stringify(users)); // Lưu vào localStorage
-
-  alert("Đăng ký thành công! Chuyển hướng đến trang đăng nhập.");
-  navigate("/login"); // Chuyển về trang Login
-};
-
   return (
-    <div className="formRegister d-flex justify-content-center text-align-center">
-      <div
-        className="row d-flex justify-content-center text-align-center form-main"
-      >
-        <div className="mm">
-          <span className="title-main">Register</span>
-        </div>
+    <div className="resgiter-container">
+      <div className="resgiter-form">
+        <h2>Resgiter</h2>
+        <p>Unlock your world.</p>
+        <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
+        <Form>
+            <label>Full Name</label>
+            <Field name="name" type="text" placeholder="Enter your name" />
+            <ErrorMessage name="name" component="div" className="error" />
 
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={handleSubmit}
-        >
-          <Form>
-            <div className="row" id="main-register">
-              <div className="input-register-form">
-                <div className="input-container">
-                  <FontAwesomeIcon icon={faUser} className="icon-register" />
-                  <Field
-                    type="text"
-                    name="username"
-                    placeholder="Nhập tên người dùng"
-                  />
-                </div>
-                <ErrorMessage name="username" component="div" className="error" />
-              </div>
+            <label>Email</label>
+            <Field name="email" type="email" placeholder="Enter your email" />
+            <ErrorMessage name="email" component="div" className="error" />
 
-              <div className="input-register-form">
-                <div className="input-container">
-                  <FontAwesomeIcon icon={faEnvelope} className="icon-register" />
-                  <Field type="email" name="email" placeholder="Nhập email" />
-                </div>
-                <ErrorMessage name="email" component="div" className="error" />
-              </div>
+            <label>Password</label>
+            <Field name="password" type="password" placeholder="Enter password" />
+            <ErrorMessage name="password" component="div" className="error" />
 
-              <div className="input-register-form">
-                <div className="input-container">
-                  <FontAwesomeIcon icon={faKey} className="icon-register" />
-                  <Field
-                    type="password"
-                    name="password"
-                    placeholder="Nhập mật khẩu"
-                  />
-                </div>
-                <ErrorMessage name="password" component="div" className="error" />
-              </div>
+            <label>Confirm Password</label>
+            <Field name="confirmPassword" type="password" placeholder="Confirm password" />
+            <ErrorMessage name="confirmPassword" component="div" className="error" />
 
-              <div className="input-register-form">
-                <div className="input-container">
-                  <FontAwesomeIcon icon={faKey} className="icon-register" />
-                  <Field
-                    type="password"
-                    name="confirmPassword"
-                    placeholder="Xác nhận mật khẩu"
-                  />
-                </div>
-                <ErrorMessage
-                  name="confirmPassword"
-                  component="div"
-                  className="error"
-                />
-              </div>
-            </div>
-
-            <button type="submit" className="btn-login">Đăng Ký</button>
+            <button type="submit" className="btn-primary">Create Account</button>
+                        {/* ✅ Thông báo hiển thị dưới form */}
+                        {submitMessage && <div className="success-message">{submitMessage}</div>}
+            <p style={{ marginTop: "1rem" }}>
+              Already have an account? <Link to="/login">Sign In</Link>
+            </p>
           </Form>
         </Formik>
       </div>
+      <div className="resgiter-image">
+        <img src={loginImage} alt="" />
+      </div>
     </div>
   );
-}
+};
 
-export default Register;
+export default Resgiter;

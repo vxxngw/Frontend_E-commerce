@@ -1,90 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
+import "./Login.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import "./Login.css";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-function Login() {
-    const handleSubmit = (values) => {
-        // Lấy danh sách người dùng từ localStorage
-        const users = JSON.parse(localStorage.getItem("users")) || [];
-      
-        // Kiểm tra thông tin đăng nhập
-        const user = users.find(
-          user => user.email === values.email && user.password === values.password
-        );
-      
-        if (user) {
-          alert("Đăng nhập thành công!");
-          navigate("/home"); // Chuyển hướng đến Home
-        } else {
-          alert("Email hoặc mật khẩu không chính xác. Hoặc tài khoản chưa được đăng ký.");
-        }
-      };
-      
-const navigate = useNavigate();
+import loginImage from "../Components/Assets/Pasted-20250410-122037_preview_rev_1.png";
+
+const Login = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
   const initialValues = {
     email: "",
     password: "",
   };
 
   const validationSchema = Yup.object({
-    email: Yup.string()
-      .email("Email không hợp lệ")
-      .required("Vui lòng nhập email"),
-    password: Yup.string()
-      .min(6, "Mật khẩu tối thiểu 6 ký tự")
-      .required("Vui lòng nhập mật khẩu"),
+    email: Yup.string().email("Email không hợp lệ").required("Vui lòng nhập email"),
+    password: Yup.string().min(6, "Tối thiểu 6 ký tự").required("Vui lòng nhập mật khẩu"),
   });
 
+  const handleSubmit = (values) => {
+    alert(`Đăng nhập thành công\nEmail: ${values.email}`);
+  };
+
   return (
-    <div className="formLogin d-flex justify-content-center text-align-center">
-      <div
-        className="row d-flex justify-content-center text-align-center form-main"
-      >
-        <div className="mm">
-          <span className="title-main">Login</span>
-        </div>
-
-        <Formik
-  initialValues={initialValues}
-  validationSchema={validationSchema}
-  onSubmit={handleSubmit}
->
-  <Form className="form-submit">
-    <div className="row" id="main-login">
-      <ErrorMessage name="email" component="div" className="error" />
-      <div className="input-login-form">
-        <FontAwesomeIcon icon={faEnvelope} style={{ marginRight: "8px" }} id="icon-login" />
-        <Field type="email" name="email" placeholder="Nhập email" />
+    <div className="login-container">
+      <div className="login-image">
+        <img src={loginImage} alt="" />
       </div>
+      <div className="login-form">
+        <h2>Sign In</h2>
+        <p>Unlock your world.</p>
+        <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
+          <Form>
+            <label>Email</label>
+            <Field name="email" type="email" placeholder="Enter your email" />
+            <ErrorMessage name="email" component="div" className="error" />
 
-      <ErrorMessage name="password" component="div" className="error" />
-      <div className="input-login-form">
-        <FontAwesomeIcon icon={faKey} style={{ marginRight: "8px" }} id="icon-login" />
-        <Field type="password" name="password" placeholder="Nhập mật khẩu" />
-      </div>
-    </div>
-    <button type="submit" className="btn-login">Đăng Nhập</button>
-    
-    {/* Liên kết Quên mật khẩu và Tạo tài khoản mới */}
-    <div className="login-links">
-      <Link to="/forget-password" className="forgot-password-link">
-        Quên mật khẩu?
-      </Link>
-      <span className="separator">|</span>
-      <Link to="/register" className="create-account-link">
-        Tạo tài khoản mới
-      </Link>
-    </div>
-  </Form>
-</Formik>
+            <label>Password</label>
+            <div className="password-field">
+              <Field
+                name="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter your password"
+              />
+              <span onClick={() => setShowPassword(!showPassword)}>
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
+            <ErrorMessage name="password" component="div" className="error" />
 
+            <button type="submit" className="btn-primary">Sign In</button>
+            <button type="button" className="btn-outline"><Link to="/register" className="create-account-link">Create Account</Link></button>
+          </Form>
+        </Formik>
       </div>
     </div>
   );
-}
+};
 
 export default Login;
