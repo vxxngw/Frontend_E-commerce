@@ -2,12 +2,17 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import { ENV_VARS } from './config/envVars.js';
 import { ConnectDB } from './config/db.js';
-
+import cors from 'cors';
 import authRoutes from './routes/auth.route.js';
 // import productRoutes from './routes/product.route.js'; // Nếu có sau này
 // import orderRoutes from './routes/order.route.js';     // Nếu có sau này
 
 const app = express();
+app.use(cors({
+    origin: 'http://localhost:3000',  // Cấu hình CORS chỉ cho phép frontend này
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Các phương thức cho phép
+    credentials: true,  // Nếu bạn muốn hỗ trợ cookies (ví dụ cho đăng nhập)
+}));
 
 // Middleware cơ bản
 app.use(express.json());
