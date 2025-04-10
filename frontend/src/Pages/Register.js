@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import "./Resgiter.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useAuthStore } from "../store/useAuthStore"; // Import store
 import loginImage from "../Components/Assets/IMG_Resgiter.png";
-const Resgiter = () => {
+import "./Resgiter.css";
 
+const Resgiter = () => {
   const [submitMessage, setSubmitMessage] = useState("");
+  const { signup, isSigningUp } = useAuthStore(); // Sử dụng action từ store
+
   const initialValues = {
     name: "",
     email: "",
@@ -24,10 +26,14 @@ const Resgiter = () => {
       .required("Xác nhận mật khẩu"),
   });
 
-  const handleSubmit = (values, { resetForm }) => {
-    // ✅ Hiển thị thông báo phía dưới
-    setSubmitMessage("🎉 Đăng ký thành công!");
-    resetForm(); // Xóa dữ liệu trong form sau khi đăng ký xong (tùy chọn)
+  const handleSubmit = async (values, { resetForm }) => {
+    try {
+      await signup(values); // Gọi action signup từ store
+      setSubmitMessage("🎉 Đăng ký thành công!"); // Hiển thị thông báo thành công
+      resetForm(); // Reset form sau khi đăng ký thành công
+    } catch (error) {
+      setSubmitMessage("Đã có lỗi xảy ra. Vui lòng thử lại!"); // Thông báo lỗi nếu có
+    }
   };
 
   return (
@@ -36,7 +42,7 @@ const Resgiter = () => {
         <h2>Resgiter</h2>
         <p>Unlock your world.</p>
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
-        <Form>
+          <Form>
             <label>Full Name</label>
             <Field name="name" type="text" placeholder="Enter your name" />
             <ErrorMessage name="name" component="div" className="error" />
@@ -53,9 +59,10 @@ const Resgiter = () => {
             <Field name="confirmPassword" type="password" placeholder="Confirm password" />
             <ErrorMessage name="confirmPassword" component="div" className="error" />
 
-            <button type="submit" className="btn-primary">Create Account</button>
-                        {/* ✅ Thông báo hiển thị dưới form */}
-                        {submitMessage && <div className="success-message">{submitMessage}</div>}
+            <button type="submit" className="btn-primary" disabled={isSigningUp}>
+              {isSigningUp ? "Đang đăng ký..." : "Create Account"}
+            </button>
+            {submitMessage && <div className="success-message">{submitMessage}</div>}
             <p style={{ marginTop: "1rem" }}>
               Already have an account? <Link to="/login">Sign In</Link>
             </p>
@@ -63,7 +70,7 @@ const Resgiter = () => {
         </Formik>
       </div>
       <div className="resgiter-image">
-        <img src={loginImage} alt="" />
+        <img src={loginImage} alt="register" />
       </div>
     </div>
   );

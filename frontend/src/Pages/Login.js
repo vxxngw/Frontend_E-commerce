@@ -3,11 +3,14 @@ import "./Login.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuthStore } from "../store/useAuthStore.js"; // Nhập store zustand
 import loginImage from "../Components/Assets/Pasted-20250410-122037_preview_rev_1.png";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const { login, isLoggingIn } = useAuthStore(); // Lấy phương thức login và trạng thái isLoggingIn từ store
+  const navigate = useNavigate(); // Để chuyển hướng khi đăng nhập thành công
 
   const initialValues = {
     email: "",
@@ -19,8 +22,9 @@ const Login = () => {
     password: Yup.string().min(6, "Tối thiểu 6 ký tự").required("Vui lòng nhập mật khẩu"),
   });
 
-  const handleSubmit = (values) => {
-    alert(`Đăng nhập thành công\nEmail: ${values.email}`);
+  const handleSubmit = async (values) => {
+    await login(values);  // Gọi phương thức login từ store zustand
+    navigate("/"); // Chuyển hướng về trang chủ sau khi đăng nhập thành công
   };
 
   return (
@@ -29,20 +33,20 @@ const Login = () => {
         <img src={loginImage} alt="" />
       </div>
       <div className="login-form">
-        <h2>Sign In</h2>
-        <p>Unlock your world.</p>
+        <h2>Đăng nhập</h2>
+        <p>Mở khóa thế giới của bạn.</p>
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
           <Form>
             <label>Email</label>
-            <Field name="email" type="email" placeholder="Enter your email" />
+            <Field name="email" type="email" placeholder="Nhập email của bạn" />
             <ErrorMessage name="email" component="div" className="error" />
 
-            <label>Password</label>
+            <label>Mật khẩu</label>
             <div className="password-field">
               <Field
                 name="password"
                 type={showPassword ? "text" : "password"}
-                placeholder="Enter your password"
+                placeholder="Nhập mật khẩu của bạn"
               />
               <span onClick={() => setShowPassword(!showPassword)}>
                 {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -50,8 +54,12 @@ const Login = () => {
             </div>
             <ErrorMessage name="password" component="div" className="error" />
 
-            <button type="submit" className="btn-primary">Sign In</button>
-            <button type="button" className="btn-outline"><Link to="/register" className="create-account-link">Create Account</Link></button>
+            <button type="submit" className="btn-primary" disabled={isLoggingIn}>
+              {isLoggingIn ? "Đang đăng nhập..." : "Đăng nhập"}
+            </button>
+            <button type="button" className="btn-outline">
+              <Link to="/register" className="create-account-link">Tạo tài khoản</Link>
+            </button>
           </Form>
         </Formik>
       </div>
