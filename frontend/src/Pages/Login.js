@@ -24,7 +24,7 @@ const Login = () => {
 
   const handleSubmit = async (values) => {
     await login(values);  // Gọi phương thức login từ store zustand
-    navigate("/"); // Chuyển hướng về trang chủ sau khi đăng nhập thành công
+    navigate("/shop"); // Chuyển hướng về trang chủ sau khi đăng nhập thành công
   };
 
   return (
