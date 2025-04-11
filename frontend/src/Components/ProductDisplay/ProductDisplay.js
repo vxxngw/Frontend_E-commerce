@@ -7,26 +7,30 @@ import { useNavigate } from 'react-router-dom';
 
 const ProductDisplay = (props) => {
   const { product } = props;
+  console.log('Product nhận được:', product);
   const { addToCart } = useContext(ShopContext);
   const [selectedSize, setSelectedSize] = useState(null);
   const navigate = useNavigate();
 
-  // Hiển thị thông báo
+  // ✅ Nếu product chưa có (undefined hoặc null), trả về thông báo loading
+  if (!product || Object.keys(product).length === 0) {
+    return <div>Đang tải thông tin sản phẩm...</div>;
+  }
+
   const showDropdownNotification = (message) => {
     const notification = document.getElementById('notification');
+    if (!notification) return;
     notification.innerText = message;
     notification.classList.add('show');
     setTimeout(() => {
       notification.classList.remove('show');
-    }, 2000); // 1 giây
+    }, 2000);
   };
 
-  // Xử lý chọn và bỏ chọn kích thước
   const handleSizeToggle = (size) => {
     setSelectedSize(selectedSize === size ? null : size);
   };
 
-  // Thêm vào giỏ hàng
   const handleAddToCart = () => {
     if (!selectedSize) {
       showDropdownNotification('Vui lòng chọn kích thước trước khi thêm vào giỏ hàng.');
@@ -36,7 +40,6 @@ const ProductDisplay = (props) => {
     showDropdownNotification(`Đã thêm ${product.name} (Kích thước: ${selectedSize}) vào giỏ hàng!`);
   };
 
-  // Mua ngay
   const handleBuyNow = () => {
     if (!selectedSize) {
       showDropdownNotification('Vui lòng chọn kích thước trước khi mua.');
@@ -48,17 +51,16 @@ const ProductDisplay = (props) => {
 
   return (
     <div className="productdisplay">
-      {/* Thông báo dạng dropdown */}
       <div id="notification"></div>
 
       <div className="productdisplay-left">
         <div className="productdisplay-img-list">
           {[...Array(4)].map((_, i) => (
-            <img key={i} src={product.image} alt="Ảnh sản phẩm" />
+            <img key={i} src={product.image || '/default.jpg'} alt="Ảnh sản phẩm" />
           ))}
         </div>
         <div className="productdisplay-img">
-          <img className="productdisplay-main-img" src={product.image} alt="Ảnh sản phẩm chính" />
+          <img className="productdisplay-main-img" src={product.image || '/default.jpg'} alt="Ảnh sản phẩm chính" />
         </div>
       </div>
 
@@ -99,7 +101,7 @@ const ProductDisplay = (props) => {
           </button>
         </div>
         <p className="productdisplay-right-category">
-          <span>Danh mục: </span>Phụ nữ, Áo phông, CropTop
+          <span>Danh mục: </span>{product.category || 'Chưa rõ'}
         </p>
         <p className="productdisplay-right-category">
           <span>Tags: </span>Hiện đại, Mới nhất

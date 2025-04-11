@@ -19,7 +19,7 @@ import banner_main from "../Assets/banner5.png";
 import banner_main_4 from "../Assets/banner4.png";
 
 const Navbar = () => {
-  const { all_product ,getTotalCartAmount } = useContext(ShopContext);
+  const { all_product, getTotalCartAmount } = useContext(ShopContext);
   const [searchQuery, setSearchQuery] = useState("");
   const topRef = useRef(null);
   const top2Ref = useRef(null);
@@ -28,11 +28,11 @@ const Navbar = () => {
   const navigate = useNavigate();
   useEffect(() => {
     let lastScrollY = 0;
-  
+
     const handleScroll = () => {
       const top = topRef.current;
       const currentScrollY = window.scrollY;
-  
+
       if (currentScrollY > 100 && currentScrollY > lastScrollY) {
         top?.classList.add("hidden");
         setIsFixed(true);
@@ -40,18 +40,18 @@ const Navbar = () => {
         top?.classList.remove("hidden");
         setIsFixed(false);
       }
-  
+
       lastScrollY = currentScrollY;
     };
-  
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  
+
   const handleSearchChange = (e) => {
     const query = e.target.value;
     setSearchQuery(query);
-  
+
     if (query.trim()) {
       const filtered = all_product.filter((product) =>
         product.name.toLowerCase().includes(query.toLowerCase())
@@ -69,7 +69,7 @@ const Navbar = () => {
       alert("Không tìm thấy sản phẩm phù hợp.");
     }
   };
-  
+
   return (
     <div className="wrapper">
       <header className="tp_header" style={{ marginBottom: "150px" }}>
@@ -93,7 +93,7 @@ const Navbar = () => {
                   className="col-md-9 col-sm-12 no-padding searchTop"
                   id="searchtop"
                 >
-                  <div className="search-collection col-xs-12 no-padding"onSubmit={handleSearchSubmit}>
+                  <div className="search-collection col-xs-12 no-padding" onSubmit={handleSearchSubmit}>
                     <form
                       className="search align-items-center"
                       action="/search"

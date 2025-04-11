@@ -4,6 +4,7 @@ import { ENV_VARS } from './config/envVars.js';
 import { ConnectDB } from './config/db.js';
 import cors from 'cors';
 import authRoutes from './routes/auth.route.js';
+import productRoutes from './routes/product.routes.js'
 // import productRoutes from './routes/product.route.js'; // Nếu có sau này
 // import orderRoutes from './routes/order.route.js';     // Nếu có sau này
 
@@ -26,6 +27,7 @@ app.use((req, res, next) => {
 
 // Routes
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/product", productRoutes);
 // app.use("/api/v1/products", productRoutes); // nếu có
 // app.use("/api/v1/orders", orderRoutes);     // nếu có
 
