@@ -89,6 +89,8 @@ const Navbar = () => {
                   </div>
                 </div>
                 {/*Search*/}
+                
+                <div className="d-flex justify-content-center">
                 <div
                   className="col-md-9 col-sm-12 no-padding searchTop"
                   id="searchtop"
@@ -98,23 +100,21 @@ const Navbar = () => {
                       className="search align-items-center"
                       action="/search"
                     >
-                      <div className="input-group">
-                        <input
-                          type="text"
-                          value={searchQuery}
-                          onChange={handleSearchChange}
-                          id="text-product"
-                          placeholder="Tìm kiếm sản phẩm bạn muốn mua"
-                        ></input>
-                        <button id="search-button" className="btn btn-primary">
-                          <FontAwesomeIcon
-                            icon={faMagnifyingGlass}
-                            id="icon-search"
-                          />
-                        </button>
-                      </div>
+                      <div className="custom-input-group">
+                      <input
+                        type="text"
+                        value={searchQuery}
+                        onChange={handleSearchChange}
+                        id="text-product"
+                        placeholder="Tìm kiếm sản phẩm bạn muốn mua"
+                      />
+                      <button id="search-button" className="btn btn-primary">
+                        <FontAwesomeIcon icon={faMagnifyingGlass} id="icon-search" />
+                      </button>
+                    </div>
                     </form>
                   </div>
+                </div>
                 </div>
               </div>
               <div className="col-md-4 col-sm-12 d-flex">

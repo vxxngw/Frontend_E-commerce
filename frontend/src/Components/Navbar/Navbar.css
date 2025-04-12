@@ -11,10 +11,16 @@ header {
     object-fit: contain;
     margin-left: -35px;
 }
+
+
+
 .search-collection {
     display: flex;
     justify-content: center; /* Căn giữa theo chiều ngang */
     align-items: center; 
+    display: flex;
+    justify-content: center; /* căn giữa theo chiều ngang */
+    padding: 0px 0;
     margin: 0 auto; /* Căn giữa container nếu cần */
     background-color: white;
     border-radius: 20px;
@@ -24,6 +30,8 @@ header {
   
   #search-button {
     /* padding: 10px 20px; */
+    width: 40px;
+    height: 40px;
     background-color: white;
     color: white;
     border: none;
@@ -32,9 +40,10 @@ header {
   
   #searchtop .search-collection {
     display: flex;
-    /* align-items: center;
-    justify-content: center; */
+    align-items: center;
+    justify-content: center;
     margin-top: 30px;
+    max-height: 100vh;
   }
   #text-product {
     width: 350px;
