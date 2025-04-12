@@ -6,7 +6,7 @@ import remove_icon from '../Assets/cart_cross_icon.png';
 import { Link } from 'react-router-dom';
 
 const CartItems = () => {
-    const { all_product, cartItems, removeFromCart, getTotalCartAmount } = useContext(ShopContext);
+    const { all_product, cartItems, removeFromCart, getTotalCartAmount,addToCart } = useContext(ShopContext);
     const navigate = useNavigate(); // Khởi tạo useNavigate để chuyển hướng người dùng
 
     const handleCheckout = () => {
@@ -41,7 +41,14 @@ const CartItems = () => {
                                 <p>{e.name}</p>
                                 <p>{e.size || "M"}</p> {/* Display size if available, default to "M" */}
                                 <p>${e.new_price}</p>
-                                <button className='cartitems-quantity'>{cartItems[e.id]}</button>
+                                
+
+                                <div className="cartitems-quantity-wrapper">
+                                    <button onClick={() => removeFromCart(e.id)} className="qty-btn">-</button>
+                                    <span className="cartitems-quantity">{cartItems[e.id]}</span>
+                                    <button onClick={() => addToCart(e.id)} className="qty-btn">+</button>
+                                </div>
+
                                 <p>${e.new_price * cartItems[e.id]}</p>
                                 <img 
                                     className='cartitems-remove-icon' 
