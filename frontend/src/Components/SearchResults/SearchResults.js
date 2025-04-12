@@ -1,35 +1,43 @@
 import React from 'react';
-import Item from '../Item/Item';
 import { useLocation } from 'react-router-dom';
-import "./SearchResults.css"
+import "./SearchResults.css";
+
 const SearchResults = () => {
   const location = useLocation();
   const results = location.state?.results || [];
 
   return (
-    <div className="search-results-page">
-      <div className='cart-search-results'>
+    <div className="search-results-container">
+      <div className="cart-search-results">
+        <h2>Kết quả tìm kiếm</h2>
 
-      
-    <h2>Kết quả tìm kiếm</h2>
-    <div className='results'>
-    {results.length > 0 ? (
-      results.map((product) => (
-        <Item
-          key={product.id}
-          id={product.id}
-          image={product.image}
-          name={product.name}
-          new_price={product.new_price}
-          old_price={product.old_price}
-        />
-      ))
-    ) : (
-      <p>Không tìm thấy sản phẩm phù hợp.</p>
-    )}
+        <div className="results">
+          {results.length > 0 ? (
+            results.map((product) => (
+              <div className="search-result-item" key={product.id}>
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="search-result-image"
+                />
+                <div className="search-result-info">
+                  <p>{product.name}</p>
+                  <p style={{ fontWeight: "bold", color: "#333" }}>
+                    {product.new_price} ₫
+                  </p>
+                  <p style={{ textDecoration: "line-through", color: "#888" }}>
+                    {product.old_price} ₫
+                  </p>
+                  <button>Thêm vào giỏ</button>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className="no-results">Không tìm thấy sản phẩm phù hợp.</p>
+          )}
+        </div>
+      </div>
     </div>
-  </div>
-  </div>
   );
 };
 
