@@ -10,7 +10,7 @@
 
 .cartitems-format-main {
     display: grid;
-    grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr 1fr;
     align-items: center;
     gap: 75px;
     padding: 20px 0px;
@@ -37,9 +37,65 @@
 .cartitems-quantity {
     width: 64px;
     height: 50px;
-    border: 2px solid #ebebeb;
+    border: 2px solid #100101;
     background: #fff;
+    color: #120101;
 }
+
+
+
+
+.cartitems-quantity-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cartitems-quantity {
+    width: 50px;
+    height: 40px;
+    border: 2px solid #120101;
+    background: #fff;
+    color: black;
+    text-align: center;
+    line-height: 40px;
+    font-size: 16px;
+    justify-content: center;
+
+}
+
+.qty-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+    border: none;
+    background-color: #ddd;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.2s;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+}
+
+.qty-btn:hover {
+    background-color: #bbb;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .cartitems-down {
     display: flex;
