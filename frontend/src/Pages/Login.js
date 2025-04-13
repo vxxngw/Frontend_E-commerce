@@ -7,23 +7,25 @@ import { faEnvelope, faKey } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 function Login() {
-    const handleSubmit = (values) => {
-        // Lấy danh sách người dùng từ localStorage
-        const users = JSON.parse(localStorage.getItem("users")) || [];
-      
-        // Kiểm tra thông tin đăng nhập
-        const user = users.find(
-          user => user.email === values.email && user.password === values.password
-        );
-      
-        if (user) {
-          alert("Đăng nhập thành công!");
-          navigate("/home"); // Chuyển hướng đến Home
-        } else {
-          alert("Email hoặc mật khẩu không chính xác. Hoặc tài khoản chưa được đăng ký.");
-        }
-      };
-      
+  const handleSubmit = (values) => {
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+  
+    const user = users.find(
+      user => user.email === values.email && user.password === values.password
+    );
+  
+    if (user) {
+      alert("Đăng nhập thành công!");
+  
+      // Lưu thông tin người dùng đang đăng nhập
+      localStorage.setItem("currentUser", JSON.stringify(user));
+  
+      navigate("/home");
+    } else {
+      alert("Email hoặc mật khẩu không chính xác. Hoặc tài khoản chưa được đăng ký.");
+    }
+  };
+  
 const navigate = useNavigate();
   const initialValues = {
     email: "",

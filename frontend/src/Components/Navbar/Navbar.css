@@ -266,3 +266,23 @@ header {
 .but-logout:hover {
   color: #ff0000;
 }
+.user-info {
+  text-decoration: none;
+  font-size: 15px;
+  color: #202020;
+  padding-right: 10px;
+}
+
+.user-info:hover {
+  color: #A52A2A;
+}
+
+.but-logout {
+  background: none;
+  border: none;
+  color: #ff0000;
+  font-size: 15px;
+  cursor: pointer;
+  padding-left: 5px;
+}
+
