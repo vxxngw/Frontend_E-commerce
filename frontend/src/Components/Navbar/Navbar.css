@@ -14,32 +14,52 @@ header {
 
 
 
+
+
 .search-collection {
-<<<<<<< HEAD
   display: flex;
   justify-content: center; /* Căn giữa theo chiều ngang */
   align-items: center; 
+  display: flex;
+  justify-content: center; /* căn giữa theo chiều ngang */
+  
   margin: 0 auto; /* Căn giữa container nếu cần */
   background-color: white;
   border-radius: 20px;
   width: 450px;
   border: 2px solid gray;
+
+  
 }
 
 #search-button {
-  /* padding: 10px 20px; */
+  padding: 10px 20px;
+  width: 50px;
+  height: 50px;
   background-color: white;
   color: white;
   border: none;
   cursor: pointer;
+  padding-top: 0px;
+  justify-content: center; /* Căn giữa theo chiều ngang */
+  align-items: center;/* Căn giữa theo chiều dọc */
+  margin: 10px 0; /* Margin trên dưới 10px, trái phải không có */
 }
 
 #searchtop .search-collection {
   display: flex;
-  /* align-items: center;
-  justify-content: center; */
-  margin-top: 30px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  max-height: 100vh;
+  height: 60px;
+  width: 450px;
 }
+
+
+
+
+
 #text-product {
   width: 350px;
   border-radius: 20px;
@@ -51,21 +71,53 @@ header {
 }
 #icon-search{
   color: gray;
+  width: 40px;
+  height: 40px;
+  justify-content: auto; /* Căn giữa theo chiều ngang */
+  align-items: center;/* Căn giữa theo chiều dọc */
+  margin: 10px 0; /* Margin trên dưới 10px, trái phải không có */
+  
+
 }
 .but-login p {
-  font-size: 15px;
-  color: #202020;
+  margin-top: 20px;
+  width: 70px;
+  height: 45px;
+  background-color:white;         /* Nền đỏ */
+  font-size: 35px;                   /* Cỡ chữ lớn hơn */
+  color: #000000;                    /* Màu chữ hồng nhạt */
+  border-radius: 90px;                /* Bo góc */
+  display: flex;                     /* Kích hoạt flexbox */
+  align-items: center;               /* Canh giữa theo chiều dọc */
+  justify-content: center;           /* Canh giữa theo chiều ngang */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+  padding: 20px;                     /* Đệm đều thay vì chỉ top */
 }
+
 .but-login p:hover {
-  color: #A52A2A	;
+  color: #000000	;
+  background-color: #b2abab;
 }
 .but-register p {
-  font-size: 15px;
-  color: #202020;
+  margin-top: 20px;
+  width: 70px;
+  height: 45px;
+  background-color: white;         /* Nền đỏ */
+  font-size: 35px;                   /* Cỡ chữ lớn hơn */
+  color: #000000;                    /* Màu chữ hồng nhạt */
+  border-radius: 90px;                /* Bo góc */
+  display: flex;                     /* Kích hoạt flexbox */
+  align-items: center;               /* Canh giữa theo chiều dọc */
+  justify-content: center;           /* Canh giữa theo chiều ngang */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+  padding: 20px;                     /* Đệm đều thay vì chỉ top */
 }
 .but-register p:hover{
-  color: #A52A2A;
+  color: #000000;
+  background-color: #b2abab;
 }
+
+
 .header-user li {
   list-style: none;
   /* display: block; */
@@ -82,139 +134,16 @@ li .but-register {
   display: none !important;
 }
 .cart_relative #icon-Shopping {
-    width: 30px;
-=======
-    display: flex;
-    justify-content: center; /* Căn giữa theo chiều ngang */
-    align-items: center; 
-    display: flex;
-    justify-content: center; /* căn giữa theo chiều ngang */
-    padding: 0px 0;
-    margin: 0 auto; /* Căn giữa container nếu cần */
-    background-color: white;
-    border-radius: 20px;
-    width: 450px;
-    border: 2px solid gray;
-  }
-  
-  #search-button {
-    /* padding: 10px 20px; */
-    width: 40px;
-    height: 40px;
-    background-color: white;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  #searchtop .search-collection {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 30px;
-    max-height: 100vh;
-  }
-  #text-product {
-    width: 350px;
-    border-radius: 20px;
-    border: none;
-    background-color: none;
-    outline: none;
-    transition: border 0.3s;
-    font-family: 'Times New Roman', Times, serif;
-  }
-  #icon-search{
-    color: gray;
-  }
-  .but-login p {
-    font-size: 15px;
-    color: #202020;
-  }
-  .but-login p:hover {
-    color: #A52A2A	;
-  }
-  .but-register p {
-    font-size: 15px;
-    color: #202020;
-  }
-  .but-register p:hover{
-    color: #A52A2A;
-  }
-  .header-user li {
-    list-style: none;
-    /* display: block; */
-    float: left;
-    padding: 0 5px;
-  }
-  li .but-login {
-    text-decoration: none;
-  }
-  li .but-register {
-    text-decoration: none;
-  }
-  .hidden {
-    display: none !important;
-  }
-  .cart_relative #icon-Shopping {
-      width: 30px;
-      
-      color: #F80000;
-      border-radius: 100%;
-  } 
-  .cart_relative #faShop {
-    margin-right: 5px;
-    width: 100%;
-    height: 100%;
-    border-radius: 100%;
-  }
-  .cart_block {
-    padding: 0px;
-    display: inline-block;
-    vertical-align: top;
-    position: relative;
-  }
-  .menu-top {
-    display: flex;
-    justify-content: center;
-    flex-direction: colum;
-    gap: 10px;
-    margin: 0;
-    padding: 0;
-  }
-  ul.menu-top {
-    list-style: none ;
-  }
-  .menu-li {
-    padding: 10px; /* Thêm khoảng cách bên trong mỗi mục menu */
-    border-radius: 5px; /* Bo tròn góc */
-    margin: 0 30px;
- }
-  .coll-icon .ico-top {
-    position: relative;
-    overflow: hidden;
-    width: 50px;
-    height: 50px;
-    padding: 0;
-    margin: 0 auto; 
-    display: block;
-    text-align: center;
-    margin-bottom: 8px;
-  }
-  .coll-icon #icon-home {
-   transform: scale(2);
-   margin-top: 15px;
-   color: #454444;
-  }
-  .coll-icon .title-main-menu{
-    text-decoration: none;
-    color: #333;
-    justify-content: center;
-    display: block;
->>>>>>> main
+  margin-top: 20px;
+    width: 45px;
+    height: 45px;
     
-    color: #F80000;
+    color: #1d0f0f;
     border-radius: 100%;
 } 
+.cart_relative #icon-Shopping:hover{
+color:#A52A2A;
+}
 .cart_relative #faShop {
   margin-right: 5px;
   width: 100%;
@@ -298,7 +227,7 @@ ul.menu-top {
   width: 100%;
   transition: top 0.3s ease, transform 0.3s ease;
   z-index: 999;
-  background: #f0f0f0;
+  background: white;
 }
 
 .top2.fixed {
@@ -320,7 +249,7 @@ ul.menu-top {
 }
 /* Form kết quả tìm kiếm */
 .search-results-form {
-background: #fff;
+background: white;
 border: 1px solid #ddd;
 border-radius: 5px;
 position: absolute;
@@ -378,7 +307,7 @@ background: #f9f9f9;
 }
 
 .search-item-input[readonly] {
-background: #f3f3f3;
+background: white;
 cursor: not-allowed;
 }
 

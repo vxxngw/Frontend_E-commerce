@@ -86,6 +86,7 @@ const Payment = () => {
                     >
                         <option value="card">Thẻ tín dụng</option>
                         <option value="paypal">PayPal</option>
+                        <option value="cash">Tiền mặt</option>
                     </select>
                 </div>
                 <button type="submit">Thanh toán</button>

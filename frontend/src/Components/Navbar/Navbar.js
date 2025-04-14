@@ -17,6 +17,13 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { Carousel } from "react-bootstrap";
 import banner_main from "../Assets/banner5.png";
 import banner_main_4 from "../Assets/banner4.png";
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+// hoặc: import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+
+
+
 
 const Navbar = () => {
   const { all_product, getTotalCartAmount } = useContext(ShopContext);
@@ -124,12 +131,16 @@ const Navbar = () => {
                       <ul className="header-user d-none d-md-block">
                         <li>
                           <Link to="/login" className="but-login">
-                            <p>Dang nhap |</p>
+                            <p>
+                            <FontAwesomeIcon icon={faUser} style={{ marginRight: '0px' }} />
+                             </p>
                           </Link>
                         </li>
                         <li>
                           <Link to="/register" className="but-register">
-                            <p>Dang ky</p>
+                            <p>
+                            <FontAwesomeIcon icon={faUserPlus} style={{ marginRight: '0px' }} />
+                            </p>
                           </Link>
                         </li>
                       </ul>
@@ -142,10 +153,10 @@ const Navbar = () => {
                       <div id="cart_block" className="cart_relative">
                         <div className="cart-total-price">
                           <Link to="/cart" id="faShop">
-                            <FontAwesomeIcon
-                              icon={faStore}
-                              id="icon-Shopping"
-                            />
+                          <FontAwesomeIcon
+      icon={faShoppingCart} // 👈 đổi từ faStore sang faShoppingCart
+      id="icon-Shopping"
+    />
                           </Link>
                           <span
                             className={getTotalCartAmount() > 0 ? "" : "hidden"}

@@ -129,40 +129,56 @@
 }
 
 .cartitems-promocode {
-    flex: 1;
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f9f9f9; /* Nền nhẹ */
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Đổ bóng nhẹ */
+    text-align: center;
+  }
+  
+  .cartitems-promocode p {
     font-size: 16px;
-    font-weight: 500;
-}
-
-.cartitems-promocode p {
-    color: #555;
-}
-
-.cartitems-promobox {
-    width: 504px;
-    margin-top: 15px;
-    padding-left: 20px;
-    height: 58px;
-    background: #eaeaea;
-}
-
-.cartitems-promobox input {
-    border: none;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .cartitems-promobox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .cartitems-promobox input {
+    padding: 10px 15px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 200px;
     outline: none;
-    background: transparent;
-    font-size: 16px;
-    width: 330px;
-    height: 50px;
-}
-
-.cartitems-promobox button {
-    width: 170px;
-    height: 58px;
-    font-size: 16px;
-    background: black;
+    transition: border-color 0.3s ease;
+  }
+  
+  .cartitems-promobox input:focus {
+    border-color: #48515c; /* Xanh khi focus */
+  }
+  
+  .cartitems-promobox button {
+    padding: 10px 18px;
+    font-size: 15px;
+    background-color: #54585c;
     color: white;
+    border: none;
+    border-radius: 6px;
     cursor: pointer;
-}
+    transition: background-color 0.3s ease;
+  }
+  
+  .cartitems-promobox button:hover {
+    background-color: #000000; /* Đậm hơn khi hover */
+  }
+  
 
 @media(max-width:1280px) {
     .cartitems {
