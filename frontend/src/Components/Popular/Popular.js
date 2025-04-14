@@ -20,7 +20,7 @@ const Popular = () => {
             {error && <p style={{ color: 'red' }}>{error}</p>}
 
             <div className="popular-item">
-                {products.map((item, index) => (
+                {products.slice(0, 4).map((item, index) => (
                     <Item
                         key={item._id || index}
                         id={item._id}

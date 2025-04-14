@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMagnifyingGlass,
-  faStore,
+  faShoppingCart,
   faHouse,
   faBaby,
   faPeopleGroup,
@@ -89,32 +89,32 @@ const Navbar = () => {
                   </div>
                 </div>
                 {/*Search*/}
-                
+
                 <div className="d-flex justify-content-center">
-                <div
-                  className="col-md-9 col-sm-12 no-padding searchTop"
-                  id="searchtop"
-                >
-                  <div className="search-collection col-xs-12 no-padding" onSubmit={handleSearchSubmit}>
-                    <form
-                      className="search align-items-center"
-                      action="/search"
-                    >
-                      <div className="custom-input-group">
-                      <input
-                        type="text"
-                        value={searchQuery}
-                        onChange={handleSearchChange}
-                        id="text-product"
-                        placeholder="Tìm kiếm sản phẩm bạn muốn mua"
-                      />
-                      <button id="search-button" className="btn btn-primary">
-                        <FontAwesomeIcon icon={faMagnifyingGlass} id="icon-search" />
-                      </button>
+                  <div
+                    className="col-md-9 col-sm-12 no-padding searchTop"
+                    id="searchtop"
+                  >
+                    <div className="search-collection col-xs-12 no-padding" onSubmit={handleSearchSubmit}>
+                      <form
+                        className="search align-items-center"
+                        action="/search"
+                      >
+                        <div className="custom-input-group">
+                          <input
+                            type="text"
+                            value={searchQuery}
+                            onChange={handleSearchChange}
+                            id="text-product"
+                            placeholder="Tìm kiếm sản phẩm bạn muốn mua"
+                          />
+                          <button id="search-button" className="btn btn-primary">
+                            <FontAwesomeIcon icon={faMagnifyingGlass} id="icon-search" />
+                          </button>
+                        </div>
+                      </form>
                     </div>
-                    </form>
                   </div>
-                </div>
                 </div>
               </div>
               <div className="col-md-4 col-sm-12 d-flex">
@@ -142,10 +142,7 @@ const Navbar = () => {
                       <div id="cart_block" className="cart_relative">
                         <div className="cart-total-price">
                           <Link to="/cart" id="faShop">
-                            <FontAwesomeIcon
-                              icon={faStore}
-                              id="icon-Shopping"
-                            />
+                            <FontAwesomeIcon icon={faShoppingCart} id="icon-cart" />
                           </Link>
                           <span
                             className={getTotalCartAmount() > 0 ? "" : "hidden"}

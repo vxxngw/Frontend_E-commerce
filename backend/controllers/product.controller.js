@@ -1,7 +1,7 @@
-import { Product } from '../models/product.model.js';
+const { Product } = require('../models/product.model.js');
 
 // Lấy tất cả sản phẩm
-export const getAllProducts = async (req, res) => {
+const getAllProducts = async (req, res) => {
     try {
         const products = await Product.find();
         res.status(200).json(products);
@@ -12,7 +12,7 @@ export const getAllProducts = async (req, res) => {
 };
 
 // Lấy sản phẩm theo ID
-export const getProductById = async (req, res) => {
+const getProductById = async (req, res) => {
     try {
         const product = await Product.findById(req.params.id);
         if (!product) {
@@ -24,7 +24,8 @@ export const getProductById = async (req, res) => {
         res.status(500).json({ error: "Lỗi khi lấy sản phẩm." });
     }
 };
-export const getPopularProducts = async (req, res) => {
+
+const getPopularProducts = async (req, res) => {
     try {
         const popularProducts = await Product.find({ is_popular: true }).limit(4);
         res.status(200).json(popularProducts);
@@ -34,9 +35,9 @@ export const getPopularProducts = async (req, res) => {
     }
 };
 
-export const getCollection = async (req, res) => {
+const getCollection = async (req, res) => {
     const { category } = req.params;
-
+    console.log("Category:", category);
     // Kiểm tra category có hợp lệ không
     const validCategories = ["men", "women", "kid"];
     if (!validCategories.includes(category)) {
@@ -51,3 +52,5 @@ export const getCollection = async (req, res) => {
         res.status(500).json({ error: "Lỗi server." });
     }
 };
+
+module.exports = { getAllProducts, getProductById, getPopularProducts, getCollection };

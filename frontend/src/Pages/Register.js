@@ -2,23 +2,23 @@ import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
-import { useAuthStore } from "../store/useAuthStore"; // Import store
+import { useAuthStore } from "../store/useAuthStore";
 import loginImage from "../Components/Assets/IMG_Resgiter.png";
 import "./Resgiter.css";
 
 const Resgiter = () => {
   const [submitMessage, setSubmitMessage] = useState("");
-  const { signup, isSigningUp } = useAuthStore(); // Sử dụng action từ store
+  const { signup, isSigningUp } = useAuthStore();
 
   const initialValues = {
-    name: "",
+    username: "",    // Đảm bảo bạn sử dụng `username`
     email: "",
     password: "",
     confirmPassword: "",
   };
 
   const validationSchema = Yup.object({
-    name: Yup.string().required("Vui lòng nhập tên"),
+    username: Yup.string().required("Vui lòng nhập tên"),
     email: Yup.string().email("Email không hợp lệ").required("Vui lòng nhập email"),
     password: Yup.string().min(6, "Tối thiểu 6 ký tự").required("Vui lòng nhập mật khẩu"),
     confirmPassword: Yup.string()
@@ -29,23 +29,23 @@ const Resgiter = () => {
   const handleSubmit = async (values, { resetForm }) => {
     try {
       await signup(values); // Gọi action signup từ store
-      setSubmitMessage("🎉 Đăng ký thành công!"); // Hiển thị thông báo thành công
+      setSubmitMessage("🎉 Đăng ký thành công!");
       resetForm(); // Reset form sau khi đăng ký thành công
     } catch (error) {
-      setSubmitMessage("Đã có lỗi xảy ra. Vui lòng thử lại!"); // Thông báo lỗi nếu có
+      setSubmitMessage("Đã có lỗi xảy ra. Vui lòng thử lại!");
     }
   };
 
   return (
     <div className="resgiter-container">
       <div className="resgiter-form">
-        <h2>Resgiter</h2>
+        <h2>Register</h2>
         <p>Unlock your world.</p>
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
           <Form>
             <label>Full Name</label>
-            <Field name="name" type="text" placeholder="Enter your name" />
-            <ErrorMessage name="name" component="div" className="error" />
+            <Field name="username" type="text" placeholder="Enter your name" />
+            <ErrorMessage name="username" component="div" className="error" />
 
             <label>Email</label>
             <Field name="email" type="email" placeholder="Enter your email" />
