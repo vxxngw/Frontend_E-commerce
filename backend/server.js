@@ -1,44 +1,53 @@
-import express from 'express';
-import cookieParser from 'cookie-parser';
-import { ENV_VARS } from './config/envVars.js';
-import { ConnectDB } from './config/db.js';
-import cors from 'cors';
-import authRoutes from './routes/auth.route.js';
-import productRoutes from './routes/product.routes.js'
-// import productRoutes from './routes/product.route.js'; // Nếu có sau này
-// import orderRoutes from './routes/order.route.js';     // Nếu có sau này
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const path = require('path');
+const { ENV_VARS } = require('./config/envVars');  // Lấy các biến môi trường từ config
+const { ConnectDB } = require('./config/db');    // Kết nối đến DB
+const cors = require('cors');
+const authRoutes = require('./routes/auth.route');
+const productRoute = require('./routes/product.route');
+const uploadRoutes = require('./routes/upload.route');
+const orderRoutes = require('./routes/order.route');
 
+// Khởi tạo ứng dụng Express
 const app = express();
+
+// Cấu hình CORS: Cho phép frontend từ localhost:3000
 app.use(cors({
     origin: 'http://localhost:3000',  // Cấu hình CORS chỉ cho phép frontend này
     methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Các phương thức cho phép
-    credentials: true,  // Nếu bạn muốn hỗ trợ cookies (ví dụ cho đăng nhập)
+    credentials: true,  // Hỗ trợ cookies (nếu cần cho đăng nhập)
 }));
 
 // Middleware cơ bản
-app.use(express.json());
-app.use(cookieParser());
+app.use(express.json());  // Để xử lý JSON trong body request
+app.use(cookieParser());  // Để xử lý cookies
 
-// Log đơn giản
-app.use((req, res, next) => {
-    console.log(`[${req.method}] ${req.url} - ${new Date().toLocaleString()}`);
-    next();
-});
+// Xử lý static files (ảnh tải lên) từ thư mục uploads
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Routes
-app.use("/api/v1/auth", authRoutes);
-app.use("/api/v1/product", productRoutes);
-// app.use("/api/v1/products", productRoutes); // nếu có
-// app.use("/api/v1/orders", orderRoutes);     // nếu có
-
-// // Mặc định nếu không khớp route nào
-// app.use("*", (req, res) => {
-//     res.status(404).json({ success: false, message: "Không tìm thấy route." });
+// Log đơn giản: Mỗi lần request đến server sẽ log thông tin
+// app.use((req, res, next) => {
+//     console.log(`Request: [${req.method}] ${req.originalUrl} from ${req.get('host')} at ${new Date().toLocaleString()}`);
+//     console.log('Headers:', req.headers);
+//     next();
 // });
+
+// Định nghĩa các routes
+app.use("/api/v1/auth", authRoutes);   // Auth routes (Đăng ký, đăng nhập...)
+app.use("/api/v1/product", productRoute);  // Product routes (Quản lý sản phẩm)
+app.use('/api/v1/upload', uploadRoutes);
+app.use('/api/v1/orders', orderRoutes);
+// Bạn có thể thêm các routes khác ở đây sau này, ví dụ:
+// app.use("/api/v1/products", productRoutes); 
+// app.use("/api/v1/orders", orderRoutes);  // Nếu có routes cho orders
+
+
 
 // Khởi động server
 app.listen(ENV_VARS.PORT, async () => {
     try {
+        // Kết nối DB trước khi khởi động server
         await ConnectDB();
         console.log(`✅ Server chạy tại http://localhost:${ENV_VARS.PORT}`);
     } catch (err) {

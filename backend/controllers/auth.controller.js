@@ -1,14 +1,15 @@
-import { User } from "../models/user.model.js";
-
-import bcrypt from "bcryptjs";
-import { generateTokenAndSetCookie } from "../ultis/generateToken.js";
+const { User } = require("../models/user.model.js");
+const bcrypt = require("bcryptjs");
+const { generateTokenAndSetCookie } = require("../ultis/generateToken.js");
 
 // Đăng ký tài khoản
-export const registerUser = async (req, res) => {
+const registerUser = async (req, res) => {
     try {
-        const { email, password, username, phone } = req.body;
+        console.log("📦 Dữ liệu nhận từ frontend:", req.body);
 
-        if (!email || !password || !username || !phone) {
+        const { email, password, username, } = req.body;
+
+        if (!email || !password || !username) {
             return res.status(400).json({ message: "Vui lòng điền đầy đủ thông tin." });
         }
 
@@ -28,11 +29,11 @@ export const registerUser = async (req, res) => {
             email,
             username,
             password: hashedPassword,
-            phone,
             avatar: "/default-avatar.png",
         });
-
+        console.log("Tạo user mới:", newUser);
         await newUser.save();
+        console.log("Đã lưu user thành công");
         generateTokenAndSetCookie(newUser._id, res);
 
         res.status(201).json({ success: true, user: { ...newUser._doc, password: "" } });
@@ -43,7 +44,7 @@ export const registerUser = async (req, res) => {
 };
 
 // Đăng nhập
-export const loginUser = async (req, res) => {
+const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
 
@@ -63,7 +64,7 @@ export const loginUser = async (req, res) => {
 };
 
 // Đăng xuất
-export const logoutUser = (req, res) => {
+const logoutUser = (req, res) => {
     try {
         res.clearCookie("jwt");
         res.status(200).json({ success: true, message: "Đăng xuất thành công." });
@@ -73,7 +74,7 @@ export const logoutUser = (req, res) => {
 };
 
 // Xác thực người dùng
-export const checkAuth = (req, res) => {
+const checkAuth = (req, res) => {
     try {
         res.status(200).json({ success: true, user: req.user });
     } catch (err) {
@@ -82,7 +83,7 @@ export const checkAuth = (req, res) => {
 };
 
 // Cập nhật thông tin người dùng
-export const updateUser = async (req, res) => {
+const updateUser = async (req, res) => {
     try {
         const userId = req.user.id;
         const { username, email, phone, password, avatar } = req.body;
@@ -105,3 +106,5 @@ export const updateUser = async (req, res) => {
         res.status(500).json({ message: "Cập nhật thất bại." });
     }
 };
+
+module.exports = { registerUser, loginUser, logoutUser, checkAuth, updateUser };

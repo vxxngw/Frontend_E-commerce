@@ -1,13 +1,12 @@
+
 import React, { useContext, useState } from 'react';
 import './ProductDisplay.css';
-import star_icon from '../Assets/star_icon.png';
-import star_dull_icon from '../Assets/star_dull_icon.png';
 import { ShopContext } from '../../Contexts/ShopContext';
 import { useNavigate } from 'react-router-dom';
-
+import star_icon from '../Assets/star_icon.png';
+import star_dull_icon from '../Assets/star_dull_icon.png';
 const ProductDisplay = (props) => {
   const { product } = props;
-  console.log('Product nhận được:', product);
   const { addToCart } = useContext(ShopContext);
   const [selectedSize, setSelectedSize] = useState(null);
   const navigate = useNavigate();
@@ -16,6 +15,8 @@ const ProductDisplay = (props) => {
   if (!product || Object.keys(product).length === 0) {
     return <div>Đang tải thông tin sản phẩm...</div>;
   }
+
+  const fullImageUrl = `http://localhost:5000/uploads/${product.image}`; // Ghép URL ảnh
 
   const showDropdownNotification = (message) => {
     const notification = document.getElementById('notification');
@@ -48,6 +49,7 @@ const ProductDisplay = (props) => {
     addToCart(product.id, selectedSize);
     navigate('/payment');
   };
+  console.log(product.image);
 
   return (
     <div className="productdisplay">
@@ -56,17 +58,27 @@ const ProductDisplay = (props) => {
       <div className="productdisplay-left">
         <div className="productdisplay-img-list">
           {[...Array(4)].map((_, i) => (
-            <img key={i} src={product.image || '/default.jpg'} alt="Ảnh sản phẩm" />
+            <img
+              key={i}
+              src={fullImageUrl}
+              alt="Ảnh sản phẩm"
+              onClick={() => window.scrollTo(0, 0)} // Cũng giống như trong Item component
+            />
           ))}
         </div>
         <div className="productdisplay-img">
-          <img className="productdisplay-main-img" src={product.image || '/default.jpg'} alt="Ảnh sản phẩm chính" />
+          <img
+            className="productdisplay-main-img"
+            src={fullImageUrl}
+            alt="Ảnh sản phẩm chính"
+          />
         </div>
       </div>
 
       <div className="productdisplay-right">
         <h1>{product.name}</h1>
         <div className="productdisplay-right-star">
+          {/* Render đánh giá như bạn đã làm trong Item component */}
           {[...Array(4)].map((_, i) => (
             <img key={i} src={star_icon} alt="Đánh giá" />
           ))}

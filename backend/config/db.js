@@ -1,7 +1,7 @@
-import mongoose from 'mongoose';
-import { ENV_VARS } from './envVars.js';
+const mongoose = require('mongoose');
+const { ENV_VARS } = require('./envVars');
 
-export const ConnectDB = async () => {
+const ConnectDB = async () => {
     try {
         // Sử dụng các tùy chọn khuyến nghị của Mongoose
         await mongoose.connect(ENV_VARS.MONGO_URI, {
@@ -14,3 +14,5 @@ export const ConnectDB = async () => {
         throw new Error('Lỗi kết nối MongoDB: ' + err.message);
     }
 };
+
+module.exports = { ConnectDB };

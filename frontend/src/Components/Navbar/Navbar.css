@@ -11,14 +11,13 @@ header {
   object-fit: contain;
   margin-left: -35px;
 }
-
-
-
 .search-collection {
-<<<<<<< HEAD
   display: flex;
   justify-content: center; /* Căn giữa theo chiều ngang */
   align-items: center; 
+  display: flex;
+  justify-content: center; /* căn giữa theo chiều ngang */
+  padding: 0px 0;
   margin: 0 auto; /* Căn giữa container nếu cần */
   background-color: white;
   border-radius: 20px;
@@ -27,7 +26,8 @@ header {
 }
 
 #search-button {
-  /* padding: 10px 20px; */
+  
+ width: 20px;
   background-color: white;
   color: white;
   border: none;
@@ -36,9 +36,10 @@ header {
 
 #searchtop .search-collection {
   display: flex;
-  /* align-items: center;
-  justify-content: center; */
+  align-items: center;
+  justify-content: center;
   margin-top: 30px;
+  max-height: 100vh;
 }
 #text-product {
   width: 350px;
@@ -83,134 +84,6 @@ li .but-register {
 }
 .cart_relative #icon-Shopping {
     width: 30px;
-=======
-    display: flex;
-    justify-content: center; /* Căn giữa theo chiều ngang */
-    align-items: center; 
-    display: flex;
-    justify-content: center; /* căn giữa theo chiều ngang */
-    padding: 0px 0;
-    margin: 0 auto; /* Căn giữa container nếu cần */
-    background-color: white;
-    border-radius: 20px;
-    width: 450px;
-    border: 2px solid gray;
-  }
-  
-  #search-button {
-    /* padding: 10px 20px; */
-    width: 40px;
-    height: 40px;
-    background-color: white;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  #searchtop .search-collection {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 30px;
-    max-height: 100vh;
-  }
-  #text-product {
-    width: 350px;
-    border-radius: 20px;
-    border: none;
-    background-color: none;
-    outline: none;
-    transition: border 0.3s;
-    font-family: 'Times New Roman', Times, serif;
-  }
-  #icon-search{
-    color: gray;
-  }
-  .but-login p {
-    font-size: 15px;
-    color: #202020;
-  }
-  .but-login p:hover {
-    color: #A52A2A	;
-  }
-  .but-register p {
-    font-size: 15px;
-    color: #202020;
-  }
-  .but-register p:hover{
-    color: #A52A2A;
-  }
-  .header-user li {
-    list-style: none;
-    /* display: block; */
-    float: left;
-    padding: 0 5px;
-  }
-  li .but-login {
-    text-decoration: none;
-  }
-  li .but-register {
-    text-decoration: none;
-  }
-  .hidden {
-    display: none !important;
-  }
-  .cart_relative #icon-Shopping {
-      width: 30px;
-      
-      color: #F80000;
-      border-radius: 100%;
-  } 
-  .cart_relative #faShop {
-    margin-right: 5px;
-    width: 100%;
-    height: 100%;
-    border-radius: 100%;
-  }
-  .cart_block {
-    padding: 0px;
-    display: inline-block;
-    vertical-align: top;
-    position: relative;
-  }
-  .menu-top {
-    display: flex;
-    justify-content: center;
-    flex-direction: colum;
-    gap: 10px;
-    margin: 0;
-    padding: 0;
-  }
-  ul.menu-top {
-    list-style: none ;
-  }
-  .menu-li {
-    padding: 10px; /* Thêm khoảng cách bên trong mỗi mục menu */
-    border-radius: 5px; /* Bo tròn góc */
-    margin: 0 30px;
- }
-  .coll-icon .ico-top {
-    position: relative;
-    overflow: hidden;
-    width: 50px;
-    height: 50px;
-    padding: 0;
-    margin: 0 auto; 
-    display: block;
-    text-align: center;
-    margin-bottom: 8px;
-  }
-  .coll-icon #icon-home {
-   transform: scale(2);
-   margin-top: 15px;
-   color: #454444;
-  }
-  .coll-icon .title-main-menu{
-    text-decoration: none;
-    color: #333;
-    justify-content: center;
-    display: block;
->>>>>>> main
     
     color: #F80000;
     border-radius: 100%;
@@ -397,4 +270,15 @@ font-size: 16px;
 
 .but-logout:hover {
 color: #ff0000;
+}
+/* CSS để thay đổi icon giỏ hàng */
+#icon-cart {
+  font-size: 30px; /* Điều chỉnh kích thước icon */
+  color: #000; /* Màu của icon */
+  transition: all 0.3s ease;
+}
+
+/* Khi hover sẽ thay đổi màu */
+#icon-cart:hover {
+  color: #ff6347; /* Màu mới khi hover */
 }

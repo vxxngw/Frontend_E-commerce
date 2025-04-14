@@ -1,12 +1,12 @@
-import express from "express";
-import {
+const express = require("express");
+const {
     registerUser,
     loginUser,
     logoutUser,
     checkAuth,
     updateUser,
-} from "../controllers/auth.controller.js";
-import { protectRoute } from "../middleware/protectRoute.js";
+} = require("../controllers/auth.controller.js");
+const { protectRoute } = require("../middleware/protectRoute.js");
 
 const router = express.Router();
 
@@ -25,4 +25,4 @@ router.get("/check-auth", protectRoute, checkAuth);
 // Cập nhật thông tin người dùng
 router.put("/update", protectRoute, updateUser);
 
-export default router;
+module.exports = router;
