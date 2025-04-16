@@ -11,27 +11,39 @@ header {
   object-fit: contain;
   margin-left: -35px;
 }
+
+
+
+
+
 .search-collection {
   display: flex;
   justify-content: center; /* Căn giữa theo chiều ngang */
   align-items: center; 
   display: flex;
   justify-content: center; /* căn giữa theo chiều ngang */
-  padding: 0px 0;
+  
   margin: 0 auto; /* Căn giữa container nếu cần */
   background-color: white;
   border-radius: 20px;
   width: 450px;
   border: 2px solid gray;
+
+  
 }
 
 #search-button {
-  
- width: 20px;
+  padding: 10px 20px;
+  width: 20px;
+  height: 20px;
   background-color: white;
   color: white;
   border: none;
   cursor: pointer;
+  padding-top: 0px;
+  justify-content: center; /* Căn giữa theo chiều ngang */
+  align-items: center;/* Căn giữa theo chiều dọc */
+  margin: 10px 0; /* Margin trên dưới 10px, trái phải không có */
 }
 
 #searchtop .search-collection {
@@ -40,7 +52,14 @@ header {
   justify-content: center;
   margin-top: 30px;
   max-height: 100vh;
+  height: 40px;
+  width: 500px;
 }
+
+
+
+
+
 #text-product {
   width: 350px;
   border-radius: 20px;
@@ -52,21 +71,53 @@ header {
 }
 #icon-search{
   color: gray;
+  width: 20px;
+  height: 20px;
+  justify-content: center; /* Căn giữa theo chiều ngang */
+  align-items: center;/* Căn giữa theo chiều dọc */
+  margin-top: 10px 0; /* Margin trên dưới 10px, trái phải không có */
+  
+
 }
 .but-login p {
-  font-size: 15px;
-  color: #202020;
+  margin-top: 20px;
+  width: 120px;
+  height: 45px;
+  background-color:white;         /* Nền đỏ */
+  font-size: 15px;                   /* Cỡ chữ lớn hơn */
+  color: #000000;                    /* Màu chữ hồng nhạt */
+  border-radius: 90px;                /* Bo góc */
+  display: flex;                     /* Kích hoạt flexbox */
+  align-items: center;               /* Canh giữa theo chiều dọc */
+  justify-content: center;           /* Canh giữa theo chiều ngang */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+  padding: 20px;                     /* Đệm đều thay vì chỉ top */
 }
+
 .but-login p:hover {
-  color: #A52A2A	;
+  color: #000000	;
+  background-color: #b2abab;
 }
 .but-register p {
-  font-size: 15px;
-  color: #202020;
+  margin-top: 20px;
+  width: 120px;
+  height: 45px;
+  background-color: white;         /* Nền đỏ */
+  font-size: 15px;                   /* Cỡ chữ lớn hơn */
+  color: #000000;                    /* Màu chữ hồng nhạt */
+  border-radius: 90px;                /* Bo góc */
+  display: flex;                     /* Kích hoạt flexbox */
+  align-items: center;               /* Canh giữa theo chiều dọc */
+  justify-content: center;           /* Canh giữa theo chiều ngang */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+  padding: 20px;                     /* Đệm đều thay vì chỉ top */
 }
 .but-register p:hover{
-  color: #A52A2A;
+  color: #000000;
+  background-color: #b2abab;
 }
+
+
 .header-user li {
   list-style: none;
   /* display: block; */
@@ -83,11 +134,16 @@ li .but-register {
   display: none !important;
 }
 .cart_relative #icon-Shopping {
-    width: 30px;
+  margin-top: 30px;
+    width: 25px;
+    height: 25px;
     
-    color: #F80000;
+    color: #1d0f0f;
     border-radius: 100%;
 } 
+.cart_relative #icon-Shopping:hover{
+color:#A52A2A;
+}
 .cart_relative #faShop {
   margin-right: 5px;
   width: 100%;
@@ -119,8 +175,8 @@ ul.menu-top {
 .coll-icon .ico-top {
   position: relative;
   overflow: hidden;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   padding: 0;
   margin: 0 auto; 
   display: block;
@@ -171,7 +227,7 @@ ul.menu-top {
   width: 100%;
   transition: top 0.3s ease, transform 0.3s ease;
   z-index: 999;
-  background: #f0f0f0;
+  background: white;
 }
 
 .top2.fixed {
@@ -193,7 +249,7 @@ ul.menu-top {
 }
 /* Form kết quả tìm kiếm */
 .search-results-form {
-background: #fff;
+background: white;
 border: 1px solid #ddd;
 border-radius: 5px;
 position: absolute;
@@ -251,7 +307,7 @@ background: #f9f9f9;
 }
 
 .search-item-input[readonly] {
-background: #f3f3f3;
+background: white;
 cursor: not-allowed;
 }
 
@@ -270,15 +326,4 @@ font-size: 16px;
 
 .but-logout:hover {
 color: #ff0000;
-}
-/* CSS để thay đổi icon giỏ hàng */
-#icon-cart {
-  font-size: 30px; /* Điều chỉnh kích thước icon */
-  color: #000; /* Màu của icon */
-  transition: all 0.3s ease;
-}
-
-/* Khi hover sẽ thay đổi màu */
-#icon-cart:hover {
-  color: #ff6347; /* Màu mới khi hover */
 }
