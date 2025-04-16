@@ -1,17 +1,24 @@
 const express = require('express');
 const router = express.Router();
-const {createOrder,getOrderById,getOrdersByUser,updateOrderStatus} = require('../controllers/order.controller')
-const orderController = require('../controllers/order.controller');
+
+// Import các hàm xử lý từ controller
+const {
+    createOrder,         // Tạo đơn hàng mới
+    getOrderById,        // Lấy đơn hàng theo ID
+    getOrdersByUser,     // Lấy danh sách đơn hàng theo user
+    updateOrderStatus    // Cập nhật trạng thái đơn hàng
+} = require('../controllers/order.controller');
+
 // Tạo đơn hàng mới
-router.post('/', orderController.createOrder);
+router.post('/', createOrder);
 
 // Lấy thông tin đơn hàng theo ID
-router.get('/:id', orderController.getOrderById);
+router.get('/:id', getOrderById);
 
-// Lấy danh sách đơn hàng của người dùng
-router.get('/user/:userId', orderController.getOrdersByUser);
+// Lấy danh sách đơn hàng của người dùng theo userId
+router.get('/user/:userId', getOrdersByUser);
 
-// Cập nhật trạng thái đơn hàng
-router.put('/:id', orderController.updateOrderStatus);
+// Cập nhật trạng thái đơn hàng theo ID
+router.put('/:id', updateOrderStatus);
 
 module.exports = router;
