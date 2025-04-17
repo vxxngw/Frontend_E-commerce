@@ -160,12 +160,8 @@ const Navbar = () => {
       id="icon-Shopping"
     />
                           </Link>
-                          <span
-                            className={getTotalCartAmount() > 0 ? "" : "hidden"}
-                          >
-                            {getTotalCartAmount()} $
-                          </span>
                         </div>
+
                       </div>
                     </div>
                   </div>

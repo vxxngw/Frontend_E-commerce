@@ -8,6 +8,7 @@ const authRoutes = require('./routes/auth.route');
 const productRoute = require('./routes/product.route');
 const uploadRoutes = require('./routes/upload.route');
 const orderRoutes = require('./routes/order.route');
+const cartRoutes = require('./routes/cart.route'); // Đường dẫn cho giỏ hàng
 
 // Khởi tạo ứng dụng Express
 const app = express();
@@ -37,6 +38,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use("/api/v1/auth", authRoutes);   // Auth routes (Đăng ký, đăng nhập...)
 app.use("/api/v1/product", productRoute);  // Product routes (Quản lý sản phẩm)
 app.use('/api/v1/upload', uploadRoutes);
+app.use('/api/v1/cart', cartRoutes); // Đường dẫn cho giỏ hàng
 app.use('/api/v1/orders', orderRoutes);
 // Bạn có thể thêm các routes khác ở đây sau này, ví dụ:
 // app.use("/api/v1/products", productRoutes); 
