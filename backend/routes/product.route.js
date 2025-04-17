@@ -1,5 +1,6 @@
 const express = require('express');
 const {
+    getNewCollection,
     getAllProducts,
     getProductById,
     getPopularProducts,
@@ -14,10 +15,13 @@ router.get('/', getAllProducts);
 // 🌟 Lấy sản phẩm phổ biến
 router.get('/popular', getPopularProducts);
 
+// 🌟 Lấy bộ sưu tập mới
+router.get('/collection/new', getNewCollection); // Đặt trước route chung
+
 // 🧺 Lấy sản phẩm theo danh mục
 router.get('/collection/:category', getCollection);
 
-// ✅ ĐỂ CUỐI CÙNG: Lấy chi tiết sản phẩm theo ID
+// ✅ Lấy chi tiết sản phẩm theo ID
 router.get('/:id', getProductById);
 
 module.exports = router;
