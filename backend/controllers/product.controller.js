@@ -76,10 +76,32 @@ const getCollection = async (req, res) => {
         res.status(500).json({ error: "Lỗi server khi lấy sản phẩm theo danh mục." });
     }
 };
+// =====================================
+// 🌟 Lấy bộ sưu tập mới
+// =====================================
+// 🌟 Lấy bộ sưu tập mới
+const getNewCollection = async (req, res) => {
+    try {
+        // Tìm các sản phẩm có thuộc tính is_new = true
+        const newCollection = await Product.find({ is_new: true });
+
+        // Kiểm tra nếu không có sản phẩm nào trong bộ sưu tập mới
+        if (newCollection.length === 0) {
+            return res.status(404).json({ error: "Không có sản phẩm mới trong bộ sưu tập." });
+        }
+
+        res.status(200).json(newCollection);
+    } catch (error) {
+        console.error("Lỗi khi lấy bộ sưu tập mới:", error.message);
+        res.status(500).json({ error: "Lỗi server khi lấy bộ sưu tập mới." });
+    }
+};
+
 
 module.exports = {
     getAllProducts,
     getProductById,
     getPopularProducts,
-    getCollection
+    getCollection,
+    getNewCollection
 };

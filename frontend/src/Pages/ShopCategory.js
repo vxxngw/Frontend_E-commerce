@@ -12,7 +12,7 @@ const ShopCategory = (props) => {
     const [maxPrice, setMaxPrice] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
-    const productsPerPage = 6;
+    const productsPerPage = 8;
 
     useEffect(() => {
         fetchAllProducts();

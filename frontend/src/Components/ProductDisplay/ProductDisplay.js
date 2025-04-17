@@ -115,7 +115,7 @@ const ProductDisplay = (props) => {
         <div className="productdisplay-right-size">
           <h1>Chọn kích thước</h1>
           <div className="productdisplay-right-sizes">
-            {product.sizes && product.sizes.map((size) => (
+            {product.size && product.size.map((size) => (
               <div
                 key={size}
                 className={`size-option ${selectedSize === size ? 'selected' : ''}`}

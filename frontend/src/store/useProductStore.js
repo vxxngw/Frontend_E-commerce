@@ -32,6 +32,7 @@ const useProductStore = create((set) => ({
             set({ error: `Lỗi khi tải sản phẩm: ${err.message}`, loading: false });
         }
     },
+
     fetchPopularProducts: async () => {
         const { loading } = useProductStore.getState();
         if (loading) return; // Không gọi lại nếu đang tải
@@ -46,18 +47,17 @@ const useProductStore = create((set) => ({
     },
 
     fetchNewCollection: async () => {
-        const { loading } = useProductStore.getState();
-        if (loading) return; // Không gọi lại nếu đang tải
-        set({ loading: true, error: null });
+        const { loadingNewCollection } = useProductStore.getState();
+        if (loadingNewCollection) return;
+        set({ loadingNewCollection: true, errorNewCollection: null });
         try {
-            const res = await axios.get('http://localhost:5000/api/v1/product/collection/women');
-            set({ newCollection: res.data, loading: false });
+            const res = await axios.get('http://localhost:5000/api/v1/product/collection/new');
+            set({ newCollection: res.data, loadingNewCollection: false });
         } catch (err) {
-            console.error(err);
-            set({ error: 'Lỗi khi tải bộ sưu tập mới', loading: false });
+            set({ errorNewCollection: err.message, loadingNewCollection: false });
         }
     },
-
+    
     fetchProductsByCategory: async (category) => {
         const { loading } = useProductStore.getState();
         if (loading) return; // Không gọi lại nếu đang tải
