@@ -144,12 +144,8 @@ const Navbar = () => {
                           <Link to="/cart" id="faShop">
                             <FontAwesomeIcon icon={faShoppingCart} id="icon-cart" />
                           </Link>
-                          <span
-                            className={getTotalCartAmount() > 0 ? "" : "hidden"}
-                          >
-                            {getTotalCartAmount()} $
-                          </span>
                         </div>
+
                       </div>
                     </div>
                   </div>
