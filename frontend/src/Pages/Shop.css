@@ -1,0 +1,40 @@
+/* Shop.css */
+
+.shop-page {
+    padding: 2rem;
+}
+
+.shop-page h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    text-align: center; /* Căn giữa tiêu đề */
+}
+
+.shop-page hr {
+    border: 1px solid #ccc;
+    margin-bottom: 2rem;
+}
+
+.shop-page section {
+    margin-bottom: 3rem;
+}
+
+.shop-page .grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);  /* Mỗi hàng có 4 cột */
+    gap: 1.5rem;
+    justify-items: center;  /* Căn giữa các item */
+    align-items: start;     /* Căn chỉnh các item từ đầu */
+}
+
+.shop-page .loading {
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.shop-page .error {
+    color: red;
+    text-align: center;
+    font-size: 1.2rem;
+}

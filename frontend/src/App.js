@@ -1,4 +1,4 @@
-
+import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css';
 import Navbar from './Components/Navbar/Navbar';
@@ -14,8 +14,13 @@ import Login from './Pages/Login';
 import Register from './Pages/Register';
 import Footer from './Components/Footer/Footer';
 import ForgetPassword from './Components/ForgetPassword/ForgetPassword';
-
+import useProductStore from "./store/useProductStore";
 function App() {
+  const fetchAllProducts = useProductStore((state) => state.fetchAllProducts);
+
+  useEffect(() => {
+    fetchAllProducts(); // gọi fetch sản phẩm ngay khi App load
+  }, []);
   return (
     <div>
       <BrowserRouter>
@@ -23,14 +28,10 @@ function App() {
         <Routes>
           <Route path='/shop' element={<Shop />} />
           <Route path='/home' element={<Home />} />
-          <Route path='/man' element={<ShopCategory  category="men" />} />
+          <Route path='/man' element={<ShopCategory category="men" />} />
           <Route path='/woman' element={<ShopCategory category="women" />} />
           <Route path='/kid' element={<ShopCategory category="kid" />} />
-          <Route path='/product' element={<Product />}>
-          
-          <Route path=':productId' element={<Product />} />
-          
-          </Route>
+          <Route path='/product/:productId' element={<Product />} /> {/* Bỏ route lồng */}
           <Route path='/payment' element={<Payment />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='/login' element={<Login />} />

@@ -1,7 +1,7 @@
-import jwt from 'jsonwebtoken';
-import { User } from '../models/user.model.js';
+const jwt = require('jsonwebtoken');
+const { User } = require('../models/user.model.js');
 
-export const protectRoute = async (req, res, next) => {
+const protectRoute = async (req, res, next) => {
     try {
         // Lấy token từ cookie
         const token = req.cookies.jwt;
@@ -28,3 +28,5 @@ export const protectRoute = async (req, res, next) => {
         return res.status(401).json({ success: false, message: "Token không hợp lệ hoặc đã hết hạn" });
     }
 };
+
+module.exports = { protectRoute };

@@ -1,23 +1,27 @@
-import React, { useContext } from 'react'
-import { ShopContext } from '../Contexts/ShopContext'
-import { useParams } from 'react-router-dom'
-import Breadcrum from '../Components/Breadcrums/Breadcrum';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import ProductDisplay from '../Components/ProductDisplay/ProductDisplay';
-import DescriptionBox from '../Components/DescriptionBox/DescriptionBox';
-import RelatedProducts from '../Components/RelatedProducts/RelatedProducts';
 
 const Product = () => {
-    const { all_product } = useContext(ShopContext);
-    const { productId } = useParams();
-    const product = all_product.find((e) => e.id === Number(productId))
+    const { productId } = useParams(); // Lấy productId từ URL
+    const [validProductId, setValidProductId] = useState(null);
+
+    useEffect(() => {
+        if (productId) {
+            console.log('Product useEffect, productId:', productId);
+            setValidProductId(productId); // Gán vào state để chắc chắn không bị undefined
+        }
+    }, [productId]);
+
+    if (!validProductId) {
+        return <div>Đang tải sản phẩm...</div>; // Tránh render khi chưa có productId
+    }
+
     return (
         <div>
-            <Breadcrum product={product} />
-            <ProductDisplay product={product} />
-            <DescriptionBox />
-            <RelatedProducts />
+            <ProductDisplay productId={validProductId} />
         </div>
-    )
-}
+    );
+};
 
-export default Product
+export default Product;
