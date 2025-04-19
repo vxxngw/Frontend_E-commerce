@@ -1,21 +1,24 @@
-import React, { useState, useEffect, useContext, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import './ProductDisplay.css';
 import { useNavigate } from 'react-router-dom';
 import star_icon from '../Assets/star_icon.png';
 import star_dull_icon from '../Assets/star_dull_icon.png';
-import { ShopContext } from '../../Contexts/ShopContext';
 import axios from 'axios';
-
+import { useAuthStore } from '../../store/useAuthStore'; // Import useAuthStore
+import useCartStore from '../../store/useCartStore'; // Import useCartStore
 const ProductDisplay = (props) => {
-  const { productId } = props;  // Giả sử bạn truyền productId qua props
+  const { productId } = props; // Giả sử bạn truyền productId qua props
+  console.log('Props productId:', productId);
   const [product, setProduct] = useState(null);
   const [selectedSize, setSelectedSize] = useState(null);
   const [notificationMessage, setNotificationMessage] = useState('');
   const [showNotification, setShowNotification] = useState(false);
   const navigate = useNavigate();
-  const { addToCart } = useContext(ShopContext);
-
+  const addToCart = useCartStore((state) => state.addToCart); // Sử dụng addToCart từ useAuthStore
+  const user = useAuthStore((state) => state.user);  // Lấy thông tin người dùng từ Zustand store
+  const userId = user?._id;  // Lấy userId từ thông tin người dùng
   const fullImageUrl = useMemo(() => `http://localhost:5000/uploads/${product?.image}`, [product?.image]);
+
   useEffect(() => {
     if (!productId) return; // Tránh log lỗi khi đang chờ productId
     const fetchProduct = async () => {
@@ -51,24 +54,33 @@ const ProductDisplay = (props) => {
   };
 
   const handleAddToCart = () => {
+    if (!userId) {
+      showDropdownNotification('Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng.');
+      return;
+    }
     if (!selectedSize) {
       showDropdownNotification('Vui lòng chọn kích thước trước khi thêm vào giỏ hàng.');
       return;
     }
-    if (!product || !product.id) {
+    if (!product || !product._id) {
       console.error('Product data is missing or invalid');
       return;
     }
-    addToCart(product._id, selectedSize);
+    console.log('Selected size:', selectedSize);
+    addToCart(userId, product._id, selectedSize, 1); // Sử dụng product._id thay vì product.id
     showDropdownNotification(`Đã thêm ${product.name} (Kích thước: ${selectedSize}) vào giỏ hàng!`);
   };
 
   const handleBuyNow = () => {
+    if (!userId) {
+      showDropdownNotification('Bạn cần đăng nhập để mua sản phẩm.');
+      return;
+    }
     if (!selectedSize) {
       showDropdownNotification('Vui lòng chọn kích thước trước khi mua.');
       return;
     }
-    addToCart(product._id, selectedSize);
+    addToCart(userId, product._id, selectedSize, 1); // Sử dụng product._id thay vì product.id
     navigate('/payment');
   };
 

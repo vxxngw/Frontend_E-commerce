@@ -61,15 +61,15 @@ const loginUser = async (req, res) => {
 
         // Tạo token
         const token = jwt.sign(
-            { id: user._id, role: user.role }, // Payload
-            process.env.JWT_SECRET,           // Secret key
-            { expiresIn: "1d" }               // Thời gian hết hạn
+            { id: user._id, role: user.role }, // Payload (Thông tin cần mã hóa)
+            process.env.JWT_SECRET,           // Secret key (Bí mật mã hóa)
+            { expiresIn: "1d" }               // Thời gian hết hạn (1 ngày)
         );
 
         // Trả về token và thông tin người dùng
         res.status(200).json({
             success: true,
-            token, // Token được trả về ở đây
+            token, // Trả về token
             user: { ...user._doc, password: "" } // Không trả về mật khẩu
         });
     } catch (err) {
@@ -77,6 +77,7 @@ const loginUser = async (req, res) => {
         res.status(500).json({ message: "Đăng nhập thất bại." });
     }
 };
+
 
 // =============================
 // 📌 Đăng xuất
@@ -143,11 +144,52 @@ const updateUser = async (req, res) => {
         res.status(500).json({ message: "Cập nhật thất bại." });
     }
 };
+const getAllUsers = async (req, res) => {
+    try {
+        const users = await User.find();
+        res.status(200).json(users);
+    } catch (err) {
+        console.log("Lỗi khi lấy danh sách người dùng:", err.message);
+        res.status(500).json({ message: "Lỗi server khi lấy người dùng." });
+    }
+};
+const deleteUser = async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const deletedUser = await User.findByIdAndDelete(userId);
 
+        if (!deletedUser) {
+            return res.status(404).json({ message: "Không tìm thấy người dùng." });
+        }
+
+        res.status(200).json({ message: "Xóa người dùng thành công." });
+    } catch (err) {
+        console.log("Lỗi khi xóa người dùng:", err.message);
+        res.status(500).json({ message: "Xóa người dùng thất bại." });
+    }
+};
+const getUserById = async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ message: "Không tìm thấy người dùng." });
+        }
+
+        res.status(200).json({ success: true, user: { ...user._doc, password: "" } });
+    } catch (err) {
+        console.log("Lỗi khi lấy thông tin người dùng:", err.message);
+        res.status(500).json({ message: "Lỗi server khi lấy thông tin người dùng." });
+    }
+};
 module.exports = {
     registerUser,
     loginUser,
     logoutUser,
     checkAuth,
-    updateUser
+    updateUser,
+    getAllUsers,
+    deleteUser,
+    getUserById
 };

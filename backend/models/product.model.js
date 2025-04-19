@@ -68,7 +68,4 @@ const productSchema = new mongoose.Schema({
 }, {
   timestamps: true, // Tự động thêm trường createdAt và updatedAt
 });
-
-const Product = mongoose.model("Product", productSchema);
-
-module.exports = { Product };
+module.exports = mongoose.model("Product", productSchema); // ✅

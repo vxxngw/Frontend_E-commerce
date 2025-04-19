@@ -126,5 +126,52 @@ export const useAuthStore = create((set) => ({
             set({ isUpdating: false });
         }
     },
+    fetchUserById: async (id) => {
+        try {
+            const token = localStorage.getItem("token");
+            const res = await axios.get(`http://localhost:5000/api/v1/auth/user/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            return res.data.user;
+        } catch (err) {
+            toast.error("Không thể lấy thông tin người dùng.");
+            return null;
+        }
+    },
+
+    fetchAllUsers: async () => {
+        try {
+            const token = localStorage.getItem("token");
+            const res = await axios.get("http://localhost:5000/api/v1/auth/users", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            return res.data;
+        } catch (err) {
+            toast.error("Không thể lấy danh sách người dùng.");
+            return [];
+        }
+    },
+
+    deleteUserById: async (id) => {
+        try {
+            const token = localStorage.getItem("token");
+            await axios.delete(`http://localhost:5000/api/v1/auth/user/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            toast.success("Xóa người dùng thành công.");
+            return true;
+        } catch (err) {
+            toast.error("Xóa người dùng thất bại.");
+            return false;
+        }
+    }
+
 
 }));
+export default useAuthStore;

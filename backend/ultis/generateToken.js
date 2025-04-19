@@ -14,4 +14,15 @@ module.exports.generateTokenAndSetCookie = (userId, res) => {
         sameSite: 'strict',   // Ngăn chặn việc gửi cookie trong các request từ domain khác => giảm nguy cơ bị CSRF
         maxAge: 7 * 24 * 60 * 60 * 1000, // Thời gian sống của cookie: 7 ngày (tính bằng mili giây)
     });
+    if (!token) {
+        console.log("No token found");  // Log nếu không có token
+        return res.status(401).json({ message: "Bạn cần đăng nhập để tiếp tục." });
+    }
+
+    console.log("Decoded Token: ", decoded);  // Log token sau khi giải mã
+    if (decoded.role !== "admin") {
+        console.log("Role is not admin");  // Log nếu role không phải admin
+        return res.status(403).json({ message: "Bạn không có quyền truy cập." });
+    }
+
 };

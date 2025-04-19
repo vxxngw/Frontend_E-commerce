@@ -15,8 +15,9 @@ import Register from './Pages/Register';
 import Footer from './Components/Footer/Footer';
 import ForgetPassword from './Components/ForgetPassword/ForgetPassword';
 import useProductStore from "./store/useProductStore"; // Import your store
-import Profile from './Components/Profile/Profile';
-
+import Profile from './Components/UserPage/ProfileUser';
+import UserOrders from './Components/UserOrder/UserOrder';
+import AdminPanel from './Pages/AdminPanel';
 function App() {
   const fetchAllProducts = useProductStore((state) => state.fetchAllProducts); // Access your store and the fetch function
 
@@ -43,6 +44,8 @@ function App() {
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/forget-password" element={<ForgetPassword />} />
           <Route path='/profile' element={<Profile />} />
+          <Route path="/orders" element={<UserOrders />} />
+          <Route path="/admin" element={<AdminPanel />} />
         </Routes>
         <Footer />
       </BrowserRouter>

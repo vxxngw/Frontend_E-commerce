@@ -4,41 +4,47 @@ import './CartItems.css';
 import useCartStore from '../../store/useCartStore';
 import useProductStore from '../../store/useProductStore';
 import remove_icon from '../Assets/cart_cross_icon.png';
+import { useAuthStore } from '../../store/useAuthStore';
 
 const CartItems = () => {
-    const { cartItems, removeFromCart, addToCart, getTotalCartAmount } = useCartStore();
-    const { products, fetchAllProducts, loading, error } = useProductStore();
+    const { cartItems, removeFromCart, addToCart, getTotalCartAmount, syncCartWithProducts, loadCartFromDB, error: cartError, loading: cartLoading } = useCartStore();
+    const { products, fetchAllProducts, loading: productsLoading, error: productsError } = useProductStore();
     const [promoCode, setPromoCode] = useState('');
     const [discountedPrice, setDiscountedPrice] = useState(0);
     const navigate = useNavigate();
+    const { user } = useAuthStore();
+    const userId = user?._id;
 
     // Log trạng thái để debug
     useEffect(() => {
-        console.log('CartItems state:', { cartItems, products, loading, error });
-    }, [cartItems, products, loading, error]);
+        console.log('CartItems state:', { cartItems, products, cartLoading, cartError, productsLoading, productsError });
+    }, [cartItems, products, cartLoading, cartError, productsLoading, productsError]);
 
-    // Tải sản phẩm và đồng bộ giỏ hàng
+    // Tải giỏ hàng và sản phẩm
     useEffect(() => {
-        if (products.length === 0 && !loading) {
+        if (userId) {
+            loadCartFromDB();
+        }
+        if (products.length === 0 && !productsLoading) {
             fetchAllProducts();
         } else if (products.length > 0) {
-            useCartStore.getState().syncCartWithProducts(products);
+            syncCartWithProducts(products);
         }
-    }, [fetchAllProducts, products, loading]);
+    }, [userId, loadCartFromDB, fetchAllProducts, products, productsLoading, syncCartWithProducts]);
 
     // Hiển thị khi đang tải
-    if (loading) {
-        console.log('⏳ Đang chờ sản phẩm...');
+    if (cartLoading || productsLoading) {
+        console.log('⏳ Đang chờ dữ liệu...');
         return <p>Đang tải dữ liệu giỏ hàng...</p>;
     }
 
     // Hiển thị lỗi nếu có
-    if (error) {
-        return <p>Lỗi: {error}. Vui lòng thử lại hoặc liên hệ hỗ trợ.</p>;
+    if (cartError || productsError) {
+        return <p>Lỗi: {cartError?.message || productsError || 'Có lỗi xảy ra. Vui lòng thử lại.'}</p>;
     }
 
     // Hiển thị khi không có sản phẩm
-    if (!loading && !error && products.length === 0) {
+    if (!productsLoading && !productsError && products.length === 0) {
         return <p>Không có sản phẩm nào trong cửa hàng. <a href="/shop">Tiếp tục mua sắm</a></p>;
     }
 
@@ -52,7 +58,7 @@ const CartItems = () => {
         return (
             <div>
                 <p>Một số sản phẩm trong giỏ hàng không còn tồn tại.</p>
-                <button onClick={() => useCartStore.getState().syncCartWithProducts(products)}>
+                <button onClick={() => syncCartWithProducts(products)}>
                     Cập nhật giỏ hàng
                 </button>
             </div>
@@ -73,15 +79,19 @@ const CartItems = () => {
             alert('GIỎ HÀNG CỦA BẠN ĐANG TRỐNG!');
             return;
         }
-        // Xử lý thanh toán tại đây...
+        navigate('/payment');
     };
 
     // Áp dụng mã giảm giá
     const applyPromoCode = () => {
         if (promoCode === 'DISCOUNT10') {
-            const discounted = getTotalCartAmount(products) * 0.9;
+            const discounted = totalAmount * 0.9; // Giảm giá 10%
             setDiscountedPrice(discounted);
             alert('MÃ GIẢM GIÁ ÁP DỤNG THÀNH CÔNG!');
+        } else if (promoCode === 'DISCOUNT20') {
+            const discounted = totalAmount * 0.8; // Giảm giá 20%
+            setDiscountedPrice(discounted);
+            alert('MÃ GIẢM GIÁ 20% ĐÃ ÁP DỤNG!');
         } else {
             setDiscountedPrice(0);
             alert('MÃ GIẢM GIÁ KHÔNG HỢP LỆ!');
@@ -121,16 +131,16 @@ const CartItems = () => {
                                 className="carticon-product-icon"
                                 onError={(e) => {
                                     console.error(`Lỗi tải hình ảnh: ${prod.image}`);
-                                    e.target.src = '/path/to/fallback-image.png';
+                                    e.target.src = '/path/to/fallback-image.png'; // Hình ảnh dự phòng
                                 }}
                             />
                             <p>{prod.name}</p>
-                            <p>{size}</p>
+                            <p>{size === 'unknown' ? 'Không xác định' : size}</p>
                             <p>${prod.new_price.toFixed(2)}</p>
                             <div className="cartitems-quantity-wrapper">
                                 <button onClick={() => removeFromCart(id, size)}>-</button>
                                 <span>{qty}</span>
-                                <button onClick={() => addToCart(id, size)}>+</button>
+                                <button onClick={() => addToCart(userId, id, size, 1)}>+</button>
                             </div>
                             <p>${(prod.new_price * qty).toFixed(2)}</p>
                             <img

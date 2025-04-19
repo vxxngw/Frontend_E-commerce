@@ -12,7 +12,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { ShopContext } from "../../Contexts/ShopContext";
 import { useAuthStore } from "../../store/useAuthStore";
-import "./Navbar.css";
 import banner_main from "../Assets/banner5.png";
 import banner_main_4 from "../Assets/banner4.png";
 import logo from "../Assets/logo.jpg";
@@ -36,10 +35,10 @@ const Navbar = () => {
       const top = topRef.current;
 
       if (currentScrollY > 100) {
-        top?.classList.add("hidden");
+        top?.classList.add("d-none");
         setIsFixed(true);
       } else {
-        top?.classList.remove("hidden");
+        top?.classList.remove("d-none");
         setIsFixed(false);
       }
     };
@@ -69,90 +68,148 @@ const Navbar = () => {
 
   return (
     <div className="navbar-wrapper">
-      <header className="navbar-header">
-        <div className="navbar-top" ref={topRef}>
-          <div className="navbar-row">
-            <div className="navbar-left">
-              <div className="logo">
-                <Link to="/shop">
-                  <img
-                    alt="Logo"
-                    src="https://pos.nvncdn.com/69e708-173581/store/20240425_lHnv9RXr.png"
-                  />
-                </Link>
-              </div>
-              <form className="search-form" onSubmit={handleSearchSubmit}>
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={handleSearchChange}
-                  placeholder="Tìm kiếm sản phẩm bạn muốn mua"
-                />
-                <button type="submit">
-                  <FontAwesomeIcon icon={faMagnifyingGlass} />
-                </button>
-              </form>
-            </div>
+      <header>
+        {/* Top Navbar */}
+        <div className="bg-white shadow-sm" ref={topRef}>
+          <div className="container py-3">
+            <div className="row align-items-center">
+              <div className="col-md-7">
+                <div className="d-flex align-items-center gap-3">
+                  {/* Logo */}
+                  <div className="me-3">
+                    <Link to="/shop">
+                      <img
+                        alt="Logo"
+                        src="https://pos.nvncdn.com/69e708-173581/store/20240425_lHnv9RXr.png"
+                        style={{ height: "60px" }}
+                      />
+                    </Link>
+                  </div>
 
-            <div className="navbar-right">
-              {user ? (
-                <div className="user-avatar-container">
-                  <img src={logo} alt="User" className="user-avatar" />
-                  <div className="dropdown-menu">
-                    <Link to="/profile">Thông tin cá nhân</Link>
-                    <Link to="/cart">Đơn hàng</Link>
-                    <button onClick={logout}>Đăng xuất</button>
+                  {/* Search Form */}
+                  <form className="d-flex w-100" onSubmit={handleSearchSubmit}>
+                    <input
+                      type="text"
+                      className="form-control rounded-pill ms-0"
+                      value={searchQuery}
+                      onChange={handleSearchChange}
+                      placeholder="Tìm kiếm sản phẩm bạn muốn mua"
+                    />
+                    <button
+                      className="btn btn-outline-secondary rounded-pill ms-0"
+                      type="submit"
+                      style={{ border: "none", background: "transparent" }}
+                    >
+                      <FontAwesomeIcon icon={faMagnifyingGlass} />
+                    </button>
+                  </form>
+                </div>
+              </div>
+
+              <div className="col-md-5">
+                <div className="d-flex justify-content-end align-items-center gap-3">
+                  {/* User Auth Section */}
+                  {user ? (
+                    <div className="dropdown">
+                      <img
+                        src={logo}
+                        alt="User"
+                        className="rounded-circle dropdown-toggle"
+                        style={{ width: "40px", height: "40px", objectFit: "cover", cursor: "pointer" }}
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      />
+                      <ul className="dropdown-menu dropdown-menu-end">
+                        <li><Link className="dropdown-item" to="/profile">Thông tin cá nhân</Link></li>
+                        <li><Link className="dropdown-item" to="/cart">Giỏ hàng</Link></li>
+                        <li><Link className="dropdown-item" to="/orders">Đơn hàng</Link></li>
+                        <li><hr className="dropdown-divider" /></li>
+                        <li><button className="dropdown-item text-danger" onClick={logout}>Đăng xuất</button></li>
+                      </ul>
+                    </div>
+                  ) : (
+                    <div className="d-flex align-items-center">
+                      <Link to="/login" className="text-decoration-none text-dark me-2">Đăng nhập</Link>
+                      <span className="text-muted mx-1">|</span>
+                      <Link to="/register" className="text-decoration-none text-dark ms-2">Đăng ký</Link>
+                    </div>
+                  )}
+
+                  {/* Cart Icon */}
+                  <div
+                    className="text-dark fs-4 position-relative"
+                    onClick={() => {
+                      if (!user) {
+                        alert("Vui lòng đăng nhập để xem giỏ hàng.");
+                        navigate("/login");
+                      } else {
+                        navigate("/cart");
+                      }
+                    }}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <FontAwesomeIcon icon={faShoppingCart} />
                   </div>
                 </div>
-              ) : (
-                <div className="auth-buttons">
-                  <Link to="/login">Đăng nhập</Link>
-                  <span>|</span>
-                  <Link to="/register">Đăng ký</Link>
-                </div>
-              )}
-
-              <Link to="/cart" className="cart-icon">
-                <FontAwesomeIcon icon={faShoppingCart} />
-              </Link>
+              </div>
             </div>
           </div>
         </div>
-
-        <nav className={`navbar-menu ${isFixed ? "fixed" : ""}`}>
-          <ul>
-            <li>
-              <Link to="/shop">
-                <FontAwesomeIcon icon={faHouse} /> HOME
-              </Link>
-            </li>
-            <li>
-              <Link to="/man">
-                <FontAwesomeIcon icon={faPerson} /> MAN
-              </Link>
-            </li>
-            <li>
-              <Link to="/woman">
-                <FontAwesomeIcon icon={faPersonDress} /> WOMEN
-              </Link>
-            </li>
-            <li>
-              <Link to="/kid">
-                <FontAwesomeIcon icon={faBaby} /> KIDS
-              </Link>
-            </li>
-            <li>
-              <Link to="/aboutus">
-                <FontAwesomeIcon icon={faPeopleGroup} /> ABOUT US
-              </Link>
-            </li>
-          </ul>
-        </nav>
       </header>
 
-      <div className="banner-slider">
-        <img src={banner_main} alt="Banner 1" />
-        <img src={banner_main_4} alt="Banner 2" />
+      {/* Main Navigation */}
+      <nav className={`navbar navbar-expand navbar-dark bg-dark ${isFixed ? "fixed-top" : ""}`}>
+        <div className="container">
+          <div className="collapse navbar-collapse">
+            <ul className="navbar-nav mx-auto">
+              <li className="nav-item">
+                <Link className="nav-link px-4" to="/shop">
+                  <FontAwesomeIcon icon={faHouse} className="me-2" /> HOME
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link px-4" to="/man">
+                  <FontAwesomeIcon icon={faPerson} className="me-2" /> MAN
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link px-4" to="/woman">
+                  <FontAwesomeIcon icon={faPersonDress} className="me-2" /> WOMEN
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link px-4" to="/kid">
+                  <FontAwesomeIcon icon={faBaby} className="me-2" /> KIDS
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link px-4" to="/aboutus">
+                  <FontAwesomeIcon icon={faPeopleGroup} className="me-2" /> ABOUT US
+                </Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      {/* Banner Carousel */}
+      <div id="bannerCarousel" className="carousel slide" data-bs-ride="carousel">
+        <div className="carousel-inner">
+          <div className="carousel-item active">
+            <img src={banner_main} className="d-block w-100" alt="Banner 1" />
+          </div>
+          <div className="carousel-item">
+            <img src={banner_main_4} className="d-block w-100" alt="Banner 2" />
+          </div>
+        </div>
+        <button className="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
+          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span className="visually-hidden">Previous</span>
+        </button>
+        <button className="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
+          <span className="carousel-control-next-icon" aria-hidden="true"></span>
+          <span className="visually-hidden">Next</span>
+        </button>
       </div>
     </div>
   );

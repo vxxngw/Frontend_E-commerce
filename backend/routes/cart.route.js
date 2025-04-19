@@ -1,8 +1,20 @@
-const express = require('express')
-const router = express.Router()
-const { getCartByUser, addToCart } = require('../controllers/cart.controller.js')
+const express = require('express');
+const router = express.Router();
+const { getCartByUser, addToCart, removeFromCart, clearCart, updateCart } = require('../controllers/cart.controller.js');
 
-router.get('/:userId', getCartByUser)
-router.post('/add', addToCart)
+// Route lấy giỏ hàng của người dùng
+router.get('/:userId', getCartByUser);
 
-module.exports = router
+// Route thêm sản phẩm vào giỏ hàng
+router.post('/add', addToCart);
+
+// Route xóa sản phẩm khỏi giỏ hàng
+router.post('/remove', removeFromCart);
+
+// Route xóa toàn bộ giỏ hàng
+router.post('/clear', clearCart);
+
+// Route cập nhật giỏ hàng
+router.post('/update', updateCart);
+
+module.exports = router;

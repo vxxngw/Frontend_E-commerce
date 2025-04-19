@@ -9,7 +9,8 @@ const productRoute = require('./routes/product.route');
 const uploadRoutes = require('./routes/upload.route');
 const orderRoutes = require('./routes/order.route');
 const cartRoutes = require('./routes/cart.route'); // Đường dẫn cho giỏ hàng
-
+const adminRoutes = require('./routes/admin.route'); // Đường dẫn cho admin
+const { adminAuth } = require('./middleware/authMiddleware'); // Middleware xác thực admin
 // Khởi tạo ứng dụng Express
 const app = express();
 
@@ -21,10 +22,11 @@ app.use(cors({
 }));
 
 // Middleware cơ bản
-app.use(express.json());  // Để xử lý JSON trong body request
+app.use(express.json({ limit: '10mb' }));  // Cho phép gửi JSON tối đa 10MB
+app.use(express.urlencoded({ limit: '10mb', extended: true }));  // Cho phép gửi dữ liệu form lớn
 app.use(cookieParser());  // Để xử lý cookies
 
-// Xử lý static files (ảnh tải lên) từ thư mục uploads
+// Middleware để phục vụ file từ thư mục uploads
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Log đơn giản: Mỗi lần request đến server sẽ log thông tin
@@ -43,8 +45,7 @@ app.use('/api/v1/orders', orderRoutes);
 // Bạn có thể thêm các routes khác ở đây sau này, ví dụ:
 // app.use("/api/v1/products", productRoutes); 
 // app.use("/api/v1/orders", orderRoutes);  // Nếu có routes cho orders
-
-
+app.use('/api/v1/admin', adminAuth, adminRoutes); // Đường dẫn cho admin, chỉ cho phép admin truy cập
 
 // Khởi động server
 app.listen(ENV_VARS.PORT, async () => {

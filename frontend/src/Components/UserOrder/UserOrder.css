@@ -1,0 +1,121 @@
+/* Basic container styling */
+.user-order-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Container for order details */
+.order-details {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 800px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Title styling */
+.order-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.order-details h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+/* Order details */
+.order-detail {
+    font-size: 18px;
+    margin: 10px 0;
+    color: #555;
+}
+
+/* Paragraph styling */
+.order-details p {
+    font-size: 16px;
+    margin: 10px 0;
+    color: #555;
+}
+
+/* Product list styling */
+.product-title {
+    font-size: 20px;
+    margin-top: 20px;
+    color: #333;
+}
+
+/* Styling for the list items */
+.product-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.product-item {
+    font-size: 16px;
+    margin-bottom: 8px;
+    padding: 10px;
+    background-color: #e8f5e9;
+    border-radius: 5px;
+}
+
+/* Table styling */
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.order-table th,
+.order-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.order-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    color: #333;
+}
+
+.order-table td {
+    color: #555;
+}
+
+/* Highlight rows on hover */
+.order-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Loading and error messages */
+.loading,
+.error,
+.no-order {
+    text-align: center;
+    font-size: 18px;
+    color: #666;
+    margin-top: 20px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .order-details {
+        padding: 15px;
+    }
+
+    .order-table th,
+    .order-table td {
+        font-size: 14px;
+        padding: 8px;
+    }
+}

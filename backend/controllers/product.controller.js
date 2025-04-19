@@ -1,5 +1,31 @@
 const mongoose = require("mongoose");
-const { Product } = require("../models/product.model.js");
+const Product = require("../models/product.model.js");
+const fs = require('fs');
+const path = require('path');
+
+// Hàm lưu ảnh từ base64
+const saveImage = (base64Image, fileName) => {
+    const matches = base64Image.match(/^data:image\/([a-zA-Z]+);base64,(.+)$/);
+    if (!matches || matches.length !== 3) {
+        throw new Error('Invalid base64 image');
+    }
+
+    const ext = matches[1]; // Lấy phần mở rộng (jpg, png, ...)
+    const data = matches[2]; // Lấy dữ liệu base64
+    const buffer = Buffer.from(data, 'base64');
+    const uploadDir = path.join(__dirname, '../uploads'); // Thư mục lưu ảnh
+
+    // Tạo thư mục nếu chưa tồn tại
+    if (!fs.existsSync(uploadDir)) {
+        fs.mkdirSync(uploadDir, { recursive: true });
+    }
+
+    const filePath = path.join(uploadDir, `${fileName}.${ext}`);
+    fs.writeFileSync(filePath, buffer); // Lưu file vào thư mục
+
+    // Trả về chỉ tên file (không bao gồm thư mục uploads)
+    return `${fileName}.${ext}`;
+};
 
 // =====================================
 // 📦 Lấy tất cả sản phẩm
@@ -84,6 +110,7 @@ const getNewCollection = async (req, res) => {
     try {
         // Tìm các sản phẩm có thuộc tính is_new = true
         const newCollection = await Product.find({ is_new: true });
+        console.log('Danh sách sản phẩm mới:', newCollection);
 
         // Kiểm tra nếu không có sản phẩm nào trong bộ sưu tập mới
         if (newCollection.length === 0) {
@@ -97,11 +124,94 @@ const getNewCollection = async (req, res) => {
     }
 };
 
+// Hàm tạo sản phẩm
+const createProduct = async (req, res) => {
+    try {
+        const { name, description, price, new_price, category, is_popular, is_new, stock, image } = req.body;
+
+        console.log("🖼️ [POST] Lưu ảnh - Bắt đầu");
+        const imageName = saveImage(image, `product_${Date.now()}`);
+        console.log("✅ [POST] Lưu ảnh - Thành công:", imageName);
+
+        const newProduct = new Product({
+            name,
+            description,
+            price,
+            new_price,
+            category,
+            is_popular,
+            is_new,
+            stock,
+            image: imageName, // Lưu chỉ tên file ảnh
+        });
+
+        await newProduct.save();
+        console.log("✅ [POST] Tạo sản phẩm - Thành công:", newProduct);
+        res.status(201).json(newProduct);
+    } catch (err) {
+        console.error("❌ [POST] Lỗi khi tạo sản phẩm:", err.message);
+        res.status(500).json({ message: "Lỗi khi tạo sản phẩm" });
+    }
+};
+
+// =====================================
+const updateProduct = async (req, res) => {
+    const productId = req.params.id;
+    const { name, description, price, category, is_popular, is_new, image, stock } = req.body;
+
+    // Kiểm tra tính hợp lệ của ID
+    if (!mongoose.Types.ObjectId.isValid(productId)) {
+        return res.status(400).json({ error: "ID sản phẩm không hợp lệ." });
+    }
+
+    try {
+        // Tìm và cập nhật sản phẩm
+        const updatedProduct = await Product.findByIdAndUpdate(
+            productId,
+            { name, description, price, category, is_popular, is_new, image, stock },
+            { new: true }
+        );
+
+        if (!updatedProduct) {
+            return res.status(404).json({ error: "Không tìm thấy sản phẩm." });
+        }
+
+        res.status(200).json({ success: true, product: updatedProduct });
+    } catch (error) {
+        console.error("Lỗi khi cập nhật sản phẩm:", error.message);
+        res.status(500).json({ error: "Lỗi khi cập nhật sản phẩm." });
+    }
+};
+const deleteProduct = async (req, res) => {
+    const productId = req.params.id;
+
+    // Kiểm tra tính hợp lệ của ID
+    if (!mongoose.Types.ObjectId.isValid(productId)) {
+        return res.status(400).json({ error: "ID sản phẩm không hợp lệ." });
+    }
+
+    try {
+        // Tìm và xóa sản phẩm
+        const deletedProduct = await Product.findByIdAndDelete(productId);
+
+        if (!deletedProduct) {
+            return res.status(404).json({ error: "Không tìm thấy sản phẩm." });
+        }
+
+        res.status(200).json({ success: true, message: "Sản phẩm đã được xóa thành công." });
+    } catch (error) {
+        console.error("Lỗi khi xóa sản phẩm:", error.message);
+        res.status(500).json({ error: "Lỗi khi xóa sản phẩm." });
+    }
+};
 
 module.exports = {
     getAllProducts,
     getProductById,
     getPopularProducts,
     getCollection,
-    getNewCollection
+    getNewCollection,
+    createProduct,
+    deleteProduct,
+    updateProduct
 };

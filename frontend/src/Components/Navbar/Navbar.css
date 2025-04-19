@@ -1,148 +1,268 @@
-/* Wrapper */
+/* Navbar.css */
 .navbar-wrapper {
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header styles */
+.navbar-header {
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 /* Top section */
 .navbar-top {
-  background: white;
-  padding: 10px 20px;
-  display: flex;
-  justify-content: center;
-  position: relative;
+  padding: 15px 0;
+  transition: all 0.3s ease;
+}
+
+.navbar-top.hidden {
+  transform: translateY(-100%);
 }
 
 .navbar-row {
-  width: 100%;
-  max-width: 1200px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
+/* Left section with logo and search */
 .navbar-left {
   display: flex;
   align-items: center;
   gap: 20px;
+  flex: 2;
 }
 
 .logo img {
-  height: 50px;
+  height: 60px;
+  object-fit: contain;
 }
 
 .search-form {
   display: flex;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  overflow: hidden;
+  flex: 1;
+  max-width: 500px;
+  position: relative;
 }
 
 .search-form input {
-  padding: 8px 12px;
-  border: none;
-  outline: none;
-  width: 250px;
+  width: 60%;
+  padding: 10px 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 20px;
+  font-size: 14px;
 }
 
 .search-form button {
-  background-color: #007bff;
-  color: white;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
   border: none;
-  padding: 8px 12px;
+  background: none;
+  color: #555;
   cursor: pointer;
 }
 
-/* Right section */
+/* Right section with user controls */
 .navbar-right {
   display: flex;
   align-items: center;
   gap: 20px;
 }
 
-.auth-buttons a {
-  margin: 0 5px;
-  text-decoration: none;
-  color: #333;
+.auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.user-avatar-container {
+.auth-buttons a {
+  color: #333;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.auth-buttons span {
+  color: #ccc;
+}
+
+.cart-icon {
+  font-size: 20px;
+  color: #333;
   position: relative;
 }
 
+/* User avatar dropdown */
+.user-avatar-container {
+  position: relative;
+  display: inline-block;
+}
+
 .user-avatar {
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   cursor: pointer;
+  object-fit: cover;
 }
 
 .dropdown-menu {
+  display: none;
   position: absolute;
-  top: 45px;
   right: 0;
-  background: white;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  padding: 10px;
-  display: flex; /* Change from 'none' to 'flex' in transition */
-  flex-direction: column;
-  gap: 10px;
-  opacity: 0; /* Hiển thị menu */
-
+  top: 45px;
+  background-color: white;
+  min-width: 180px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  border-radius: 4px;
+  padding: 10px 0;
 }
 
 .user-avatar-container:hover .dropdown-menu {
-  opacity: 1; /* Khi hover, hiển thị menu */
-  transform: translateY(0); /* Trở về vị trí ban đầu */
-  pointer-events: auto; /* Cho phép tương tác khi menu được hiển thị */
+  display: block;
 }
 
-
-
-.cart-icon {
+.dropdown-link {
+  display: block;
   color: #333;
-  font-size: 20px;
+  text-decoration: none;
+  padding: 10px 15px;
+  font-size: 14px;
 }
 
-/* Menu navigation */
+.dropdown-link:hover {
+  background-color: #f5f5f5;
+}
+
+.dropdown-menu button {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 10px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #d9534f;
+}
+
+.dropdown-menu button:hover {
+  background-color: #f5f5f5;
+}
+
+/* Navigation menu */
 .navbar-menu {
-  background: #f0f0f0;
-  padding: 10px 0;
-  text-align: center;
-  transition: top 0.3s;
+  background-color: #333;
+  padding: 0;
+  transition: all 0.3s ease;
 }
 
 .navbar-menu.fixed {
   position: fixed;
   top: 0;
-  width: 100%;
-  z-index: 999;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .navbar-menu ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
   display: flex;
-  justify-content: center;
-  gap: 40px;
+  list-style: none;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
 }
 
-.navbar-menu li a {
-  text-decoration: none;
-  color: #333;
-  font-weight: bold;
+.navbar-menu li {
+  position: relative;
+}
+
+.navbar-menu a {
   display: flex;
   align-items: center;
   gap: 8px;
+  color: white;
+  text-decoration: none;
+  padding: 15px 25px;
+  font-weight: 500;
+  transition: background-color 0.3s;
 }
 
-/* Banners */
+.navbar-menu a:hover {
+  background-color: #555;
+}
+
+/* Banner slider */
 .banner-slider {
-  display: flex;
+  width: 100%;
   overflow: hidden;
+  position: relative;
 }
 
 .banner-slider img {
-  width: 50%;
-  object-fit: cover;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Responsive design */
+@media (max-width: 992px) {
+  .navbar-left {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .search-form {
+    width: 50%;
+  }
+  
+  .navbar-menu ul {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-row {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .banner-slider img {
+    animation: none;
+  }
+  
+  .navbar-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .navbar-menu a {
+    padding: 12px 15px;
+    font-size: 14px;
+  }
+}
+
+/* Animation for banner slider */
+@keyframes slide {
+ }
+
+
+.banner-slider {
+  display: flex;
+
+}
+.search-form input {
+  font-size: 12px;
+  padding: 8px 12px;
+}
+.banner-slider img {
+  min-width: 100%;
+  flex-shrink: 0;
 }

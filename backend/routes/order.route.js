@@ -9,14 +9,14 @@ const {
     updateOrderStatus    // Cập nhật trạng thái đơn hàng
 } = require('../controllers/order.controller');
 
+// ✅ Lấy danh sách đơn hàng của người dùng theo userId
+router.get('/user/:userId', getOrdersByUser);
+
 // Tạo đơn hàng mới
 router.post('/', createOrder);
 
 // Lấy thông tin đơn hàng theo ID
 router.get('/:id', getOrderById);
-
-// Lấy danh sách đơn hàng của người dùng theo userId
-router.get('/user/:userId', getOrdersByUser);
 
 // Cập nhật trạng thái đơn hàng theo ID
 router.put('/:id', updateOrderStatus);
